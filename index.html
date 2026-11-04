@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="UBS Profissa: teleconsulta assistida por IA em medicina de família — pipeline, travas de segurança e resultados de teste.">
+<meta name="description" content="UBS Profissa: teleconsulta assistida por IA em medicina de família — pipeline, travas de segurança, resultados de teste e skill para colegas.">
 <title>UBS Profissa</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -132,6 +132,11 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
 .limites{columns:2;column-gap:28px;font-size:15px;max-width:none}
 .limites li{break-inside:avoid;margin-bottom:8px}
 @media (max-width:700px){.limites{columns:1}}
+.passos{padding-left:22px;max-width:72ch;display:grid;gap:10px;margin:12px 0 0}
+.passos li{padding-left:4px}
+.btn{display:inline-block;background:var(--accent);color:var(--bg);text-decoration:none;font-family:var(--display);font-weight:700;font-size:14px;padding:7px 14px;border-radius:999px;margin:4px 6px 0 0}
+.btn:hover{filter:brightness(1.08)}
+.note-inline{font-size:13px;color:var(--fg-2)}
 .sig{margin-top:40px;font-family:var(--display);font-weight:700;font-size:14px}
 .sig small{display:block;font-weight:400;color:var(--fg-2);font-family:var(--body);margin-top:6px;max-width:68ch}
 .ficcao{font-size:13px;color:var(--fg-2);border:1px dashed var(--line);padding:8px 12px;display:inline-block;margin-bottom:16px}
@@ -159,7 +164,7 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
     <button type="button" id="aud-dev" data-aud="dev" aria-pressed="false">Desenvolvedor</button>
   </div>
   <nav>
-    <a href="#pipeline">Pipeline</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#limites">Limites</a>
+    <a href="#pipeline">Pipeline</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#instalar">Instalar</a><a href="#limites">Limites</a>
   </nav>
 </div>
 
@@ -589,6 +594,34 @@ a parente com exame vira uma pergunta.</div>
         <li>Para adaptar a outra prática: trocar a seção de território e rede, o formulário de medicamentos e o cabeçalho dos documentos; as travas e o pipeline não dependem do lugar.</li>
       </ul>
     </div>
+  </div>
+</section>
+
+<section id="instalar">
+  <div class="eyebrow">Para colegas</div>
+  <h2>Como instalar a skill no seu Claude</h2>
+  <p>A edição para colegas é a mesma skill testada nesta página (v3.8.15), sem o nome, o CRM, a unidade e a rede do autor. Esses dados viram configuração: a skill pergunta na primeira conversa, ou você preenche antes de instalar.</p>
+  <ol class="passos">
+    <li><b>Baixe o arquivo.</b> <a class="btn" href="ubs-profissa-colega.skill" download>Baixar ubs-profissa-colega.skill</a> <span class="note-inline">v3.8.15 · edição colega</span></li>
+    <li><b>Configure (opcional).</b> O arquivo <code>.skill</code> é um <code>.zip</code>. Descompacte, preencha <code>ubs-profissa/references/configuracao.md</code> (nome, título, CRM, unidade, município, rede local) e compacte de novo. Se pular este passo, a skill pergunta esses dados na primeira conversa.</li>
+    <li><b>Instale.</b> No Claude, abra Configurações → Skills e envie o arquivo. A disponibilidade de skills depende do seu plano; em caso de dúvida, veja a <a href="https://support.claude.com" rel="noopener">central de ajuda do Claude</a>.</li>
+    <li><b>Teste.</b> Numa conversa nova, mande só <code>ubs</code>. A resposta esperada é "UBS aberta. Quem chegou hoje?". Se a configuração estiver vazia, a skill pede seus dados antes do primeiro documento.</li>
+    <li><b>Adapte antes de usar com paciente.</b> Informe a sua rede (PS, UPA, CAPS, farmácia de controlados, polo regional). Sem isso, a skill diz "rede local não configurada" em vez de inventar um serviço.</li>
+  </ol>
+  <div class="cols" style="margin-top:14px">
+    <div class="doc"><span class="t">O que muda nesta edição</span>• sem nome, CRM, unidade ou rede do autor
+• assinatura = o que você configurar
+• rede local = configuração; ausente, ela pergunta
+• decisões clínicas do autor ([MARTELO autor])
+  valem como padrão até você decidir outra coisa
+• sem casos-teste nem histórico de versões</div>
+    <div class="doc"><span class="t">Antes de usar</span>• a responsabilidade pelo ato e pelo documento
+  é de quem assina (Res. CFM 2.454/2026)
+• informe o paciente quando a IA for apoio relevante
+• não cole nome, CPF ou endereço de paciente sem
+  necessidade; a ficha é desidentificada por regra
+• o corpus de fontes tem data; confira diretrizes
+  que mudam (vacinação, PCDT, rastreamento)</div>
   </div>
 </section>
 
