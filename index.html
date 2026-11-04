@@ -481,7 +481,7 @@ a parente com exame vira uma pergunta.</div>
     <div class="trava">
       <div class="date">22/10/2026 · "(confirmar)" no papel</div>
       <div class="err">Um pedido de fonoaudiologia saiu com marca de dúvida em campo que podia ter sido perguntado antes.</div>
-      <div class="fix"><b>Regra 4-D, documento impecável:</b> a dúvida se resolve antes, com perguntas de sim/não, uma por linha, no máximo quinze. Depois, o lint (<code>lint_4d.py</code>) lê o arquivo e bloqueia "confirmar", "a definir", campo em branco e "Dr.". Calibrado contra 34 documentos reais.</div>
+      <div class="fix"><b>Regra 4-D, documento impecável:</b> a dúvida se resolve antes, com perguntas de sim/não, uma por linha, em ordem de prioridade. Depois, o lint (<code>lint_4d.py</code>) lê o arquivo e bloqueia "confirmar", "a definir", campo em branco e "Dr.". Calibrado contra 34 documentos reais.</div>
     </div>
     <div class="trava">
       <div class="date">v3.8.4 · degrau pulado</div>
@@ -546,12 +546,12 @@ a parente com exame vira uma pergunta.</div>
   </div>
   <h3 style="margin-top:22px">O que ainda falha, por padrão</h3>
   <ul class="falhas">
-    <li><b>Falha sistemática — pergunta composta e rascunho (campo-nao-inferido, 3 de 3 rodadas).</b> Pergunta antes de gerar e não inventa nada, mas junta duas perguntas numa linha, o que estoura o teto de quinze, e sem resposta não entrega o rascunho em texto que a regra 4-E pede.</li>
+    <li><b>Falha sistemática — pergunta composta e rascunho (campo-nao-inferido, 3 de 3 rodadas).</b> Pergunta antes de gerar e não inventa nada, mas junta duas perguntas numa linha e, sem resposta, não entrega o rascunho em texto que a regra 4-E pede. Corrigido na v3.8.15, ainda sem nova rodada de teste.</li>
     <li><b>Falha recorrente — H. pylori sem teste não invasivo primeiro (transcricao-estagio1, 2 de 3).</b> Identifica a hipótese, mas deixa a ordem em aberto em vez de propor antígeno fecal ou teste respiratório antes da endoscopia.</li>
-    <li><b>Contestável — teto de perguntas (dado-incerto-terceiro, 2 de 3).</b> O avaliador contou o bloco de secundárias dentro do teto de quinze; pela regra, as secundárias são permitidas em bloco separado. Fica para decisão do autor.</li>
+    <li><b>Resolvido por decisão — teto de perguntas (dado-incerto-terceiro, 2 de 3).</b> A falha era só passar de quinze perguntas. O teto foi revogado na v3.8.15: o documento leva quantas perguntas precisar, em ordem de prioridade.</li>
     <li><b>Oscilação de uma rodada.</b> Frase de abertura em negrito (ativação); resultado do lint afirmado sem saída visível para o avaliador; PA e peso como tarefa datada (falhou na rodada 1, passou nas duas seguintes).</li>
   </ul>
-  <p class="note">Nenhuma das falhas é de fabricação. Os erros restantes são de forma (como perguntar) e de uma escada incompleta, e as duas primeiras viram correção na próxima versão da skill. As rodadas 2 e 3 não usaram necessariamente o mesmo modelo executor da rodada 1.</p>
+  <p class="note">Nenhuma das falhas é de fabricação. Os erros restantes são de forma (como perguntar) e de uma escada incompleta, A primeira foi corrigida na v3.8.15; a segunda depende de uma regra clínica em discussão. As rodadas 2 e 3 não usaram necessariamente o mesmo modelo executor da rodada 1.</p>
 </section>
 
 <section id="leituras">
