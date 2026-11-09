@@ -75,6 +75,7 @@ section{padding-block:40px;border-bottom:1px solid var(--line)}
 /* pipeline */
 .stage{display:grid;grid-template-columns:56px 1fr;gap:0 18px;padding-block:28px;border-top:1px dashed var(--line)}
 .stage:first-of-type{border-top:0}
+.stage>*{min-width:0}
 .stage .n{font-family:var(--display);font-weight:800;font-size:32px;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
 .stage .n small{display:block;font-size:11px;letter-spacing:.1em;color:var(--fg-2);font-weight:600;margin-top:4px}
 .stage h3{margin-bottom:6px}
@@ -141,6 +142,38 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
 .sig small{display:block;font-weight:400;color:var(--fg-2);font-family:var(--body);margin-top:6px;max-width:68ch}
 .ficcao{font-size:13px;color:var(--fg-2);border:1px dashed var(--line);padding:8px 12px;display:inline-block;margin-bottom:16px}
 @media (prefers-reduced-motion:no-preference){.stage{scroll-margin-top:70px}}
+/* raciocínio passo a passo */
+.rx-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0;border-bottom:1px solid var(--line);padding-bottom:10px}
+.rx-tabs button{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);color:var(--fg-2);font:inherit;font-size:14px;padding:6px 12px 6px 6px;border-radius:999px;cursor:pointer}
+.rx-tabs button b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--paper-2);font-family:var(--display);font-size:13px;color:var(--fg)}
+.rx-tabs button[aria-selected="true"]{border-color:var(--accent);color:var(--fg);box-shadow:inset 0 0 0 1px var(--accent)}
+.rx-tabs button[aria-selected="true"] b{background:var(--accent);color:var(--bg)}
+.rx-panel{padding-top:18px}
+.rx-panel h3{margin-bottom:12px}
+.hyp{margin-top:16px;background:var(--paper);border:1px solid var(--line);padding:12px 14px}
+.hyp:empty{display:none}
+.hyp .t{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-2);margin-bottom:8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.hyp .t span{font-weight:400;letter-spacing:0;text-transform:none;font-family:var(--body)}
+.hrow{display:grid;grid-template-columns:minmax(0,1.3fr) 120px minmax(0,1.7fr);gap:4px 14px;align-items:center;padding:7px 0;border-top:1px solid var(--line);font-size:14px}
+.hrow:first-of-type{border-top:0}
+.hrow .nm{font-weight:600}
+.hrow .why{color:var(--fg-2);font-size:13.5px}
+.lvl{display:flex;gap:3px;align-items:center}
+.lvl i{display:block;width:16px;height:10px;border-radius:2px;background:var(--line);opacity:.5}
+.lvl i.on{opacity:1}
+.lvl[data-l="1"] i.on,.lvl[data-l="2"] i.on{background:var(--accent)}
+.lvl[data-l="3"] i.on{background:var(--warn)}
+.lvl[data-l="4"] i.on,.lvl[data-l="5"] i.on{background:var(--crit)}
+.lvl .d{font-size:12px;margin-left:6px;font-weight:700;width:14px}
+.lvl .d.up{color:var(--crit)}.lvl .d.dn{color:var(--ok)}
+.hrow.out .nm,.hrow.out .why{text-decoration:line-through;text-decoration-color:var(--fg-2);opacity:.6}
+.hrow.conf .nm{color:var(--crit)}
+@media (max-width:640px){.hrow{grid-template-columns:1fr auto}.hrow .why{grid-column:1/-1}}
+.rx-nav{display:flex;justify-content:space-between;gap:8px;margin-top:16px}
+.rx-nav button{border:1px solid var(--line);background:var(--paper);color:var(--fg);font:inherit;font-size:14px;padding:7px 14px;border-radius:999px;cursor:pointer}
+.rx-nav button:disabled{opacity:.4;cursor:default}
+.rx-sub{margin:34px 0 12px}
+@media (prefers-reduced-motion:no-preference){#raciocinio{scroll-margin-top:70px}}
 </style>
 </head>
 <body>
@@ -149,7 +182,7 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
 <header class="hdr">
   <div class="eyebrow">Teleconsulta assistida · skill v3.8.17</div>
   <h1>UBS Profissa</h1>
-  <p class="lede">Uma interface entre Claude e um médico de família. Não é um chatbot que responde ao paciente: o médico conduz a consulta e decide; o sistema estrutura o que foi dito, verifica o que vai para o papel e documenta. Esta página mostra, num caso fictício, uma teleconsulta que parecia resolvida e o que a ferramenta encontrou nela; depois, as travas de segurança e o que o teste automatizado mede.</p>
+  <p class="lede">Uma interface entre Claude e um médico de família. Não é um chatbot que responde ao paciente: o médico conduz a consulta e decide; o sistema estrutura o que foi dito, verifica o que vai para o papel e documenta. Esta página mostra, num caso fictício, uma teleconsulta que parecia resolvida e o que a ferramenta encontrou nela; depois, para colegas, um caso de raciocínio clínico passo a passo; por fim, as travas de segurança e o que o teste automatizado mede.</p>
   <div class="meta">
     <span>Versão da skill: v3.8.17 (05/11/2026)</span>
     <span>Benchmark: iteração 3 + três baterias de segurança</span>
@@ -164,7 +197,7 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
     <button type="button" id="aud-dev" data-aud="dev" aria-pressed="false">Desenvolvedor</button>
   </div>
   <nav>
-    <a href="#pipeline">Pipeline</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#instalar">Instalar</a><a href="#limites">Limites</a>
+    <a href="#pipeline">Pipeline</a><a href="#raciocinio">Raciocínio</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#instalar">Instalar</a><a href="#limites">Limites</a>
   </nav>
 </div>
 
@@ -473,6 +506,246 @@ a parente com exame vira uma pergunta.</div>
 </section>
 
 
+<section id="raciocinio">
+  <div class="eyebrow">Para colegas · raciocínio clínico</div>
+  <h2>Da dor nas costas ao diagnóstico, em seis passos</h2>
+  <div class="ficcao">Caso fictício, montado para demonstração. Os níveis das hipóteses são qualitativos, para mostrar a direção do raciocínio; o sistema não calcula probabilidade.</div>
+  <p>Pense num Google com esteroides que já conhece as regras do seu raciocínio. A cada dado novo que você traz, ele refaz a escada diagnóstica: mostra todas as causas na mesa, aponta o exame mais barato que separa uma da outra, cita a fonte e diz o que ainda falta. Quem examina, pede o exame, pesa a probabilidade e assina é você. É um copiloto, não um piloto.</p>
+  <p>O caso é o mais comum da atenção primária: um homem de 63 anos com dor lombar. Clique em cada passo.</p>
+
+  <div class="rx-tabs" role="tablist" aria-label="Passos do raciocínio">
+    <button type="button" role="tab" id="rx-t1" aria-controls="rx-p1" aria-selected="true"><b>1</b><span>Consulta</span></button>
+    <button type="button" role="tab" id="rx-t2" aria-controls="rx-p2" aria-selected="false" tabindex="-1"><b>2</b><span>Exame físico</span></button>
+    <button type="button" role="tab" id="rx-t3" aria-controls="rx-p3" aria-selected="false" tabindex="-1"><b>3</b><span>Laboratório</span></button>
+    <button type="button" role="tab" id="rx-t4" aria-controls="rx-p4" aria-selected="false" tabindex="-1"><b>4</b><span>Imagem</span></button>
+    <button type="button" role="tab" id="rx-t5" aria-controls="rx-p5" aria-selected="false" tabindex="-1"><b>5</b><span>Exames dirigidos</span></button>
+    <button type="button" role="tab" id="rx-t6" aria-controls="rx-p6" aria-selected="false" tabindex="-1"><b>6</b><span>Desfecho</span></button>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="rx-p1" aria-labelledby="rx-t1">
+    <h3>Dia 0 · A queixa comum ganha bandeira vermelha</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que o médico digitou</span>ubs: homem 63a, dor lombar há 8 semanas,
+piora à noite, acorda com dor, não melhora
+deitado. Sem trauma. Tomou ibuprofeno por
+conta, melhora pouco. Perdeu uns 4 kg sem
+dieta. Cansado. Duas pneumonias este ano.
+Ex-tabagista.</div>
+      <div class="doc"><span class="t">O que a skill devolve</span><b>⚑ Passo 0</b> presencial · USF · tudo é relato,
+nada examinado ainda · falta: exame dirigido,
+creatinina basal, dose e dias de ibuprofeno
+
+<span class="crit">Bandeiras:</span> &gt;50 a com dor nova sem melhora
+em 6–8 sem · dor noturna · perda de peso
+→ neoplasia na mesa <span class="tag">[NICE-LBP; TMFC]{D}</span>
+
+<b>Escada</b> 1) mecânica: não explica dor noturna
+nem peso → 2) fratura por fragilidade →
+3) infecção (espondilodiscite) → 4) metástase
+(próstata, pulmão, rim) → 5) mieloma: dor
+óssea + infecções de repetição
+<b>Primeiro passo:</b> exame dirigido hoje.
+Não é "RX de coluna e anti-inflamatório".
+
+<span class="conf">⚠</span> ibuprofeno em quem pode ter rim comprometido:
+suspender até ver a creatinina <span class="tag">{RC}</span></div>
+    </div>
+    <div class="hyp" data-step="0"></div>
+    <p class="note"><b>O que mudou:</b> sem bandeira, a mesma skill diria para não pedir imagem (prevenção quaternária). É a bandeira que autoriza investigar, e é o médico que a coleta na anamnese.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="rx-p2" aria-labelledby="rx-t2">
+    <h3>Dia 0 · O exame físico separa mecânico de estrutural</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que o médico digitou</span>examinei: dor à percussão do processo
+espinhoso de L3. Força e sensibilidade
+preservadas, Lasègue negativo, reflexos
+simétricos. Tax 36,6. Palidez 2+/4+.
+Toque retal: próstata aumentada,
+fibroelástica, sem nódulo. Sem linfonodos.
+Ausculta pulmonar limpa.</div>
+      <div class="doc"><span class="t">O que a skill devolve</span>"examinei" → registrado como <span class="ok">observado</span>
+(regra 4-C); o resto segue como relato
+
+• percussão vertebral dolorosa e localizada:
+  lesão do corpo vertebral (fratura, lítica,
+  infecção), não dor mecânica <span class="tag">{CE}</span>
+• sem déficit, sem sinal de cauda equina:
+  não é emergência hoje
+• toque sem nódulo reduz, não exclui
+  próstata; o PSA decide <span class="tag">{CE}</span>
+• palidez + dor óssea + infecções: anemia
+  a quantificar
+
+<b>Primeiro passo:</b> um pedido de laboratório
+que separa os degraus 2 a 5 de uma vez.
+<b>Pulei degrau?</b> Sim: não pedi RM agora. O
+laboratório separa mais barato; RM se
+aparecer déficit.</div>
+    </div>
+    <div class="hyp" data-step="1"></div>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="rx-p3" aria-labelledby="rx-t3">
+    <h3>Dia 5 · O laboratório desenha um padrão</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">Laudo colado pelo médico</span>Hb 9,4 g/dL · VCM 89 · leuco 5.100
+plaquetas 182 mil
+VHS 96 mm/h · PCR 0,9 mg/dL
+creatinina 1,4 mg/dL (há 2 anos: 0,9)
+cálcio total 10,6 mg/dL · albumina 3,2 g/dL
+proteínas totais 9,4 g/dL
+PSA 1,8 ng/mL
+EAS: proteína negativa na fita</div>
+      <div class="doc"><span class="t">O que a skill devolve</span>• anemia normocítica + VHS 96 com PCR
+  quase normal: VHS alta sem inflamação
+  proporcional → proteína anômala no
+  sangue <span class="tag">{CE}</span>
+• gap = 9,4 − 3,2 = <mark>6,2 g/dL</mark> (&gt;4): excesso
+  de globulina <span class="tag">{CE}</span>
+• cálcio corrigido = 10,6 + 0,8 × (4,0 − 3,2)
+  = <mark>11,2 mg/dL</mark>: hipercalcemia leve <span class="tag">{CE}</span>
+• creatinina 0,9 → 1,4 + ibuprofeno: rim
+  em queda; suspender AINE, hidratar <span class="tag">{RC}</span>
+• fita sem proteína não exclui cadeia
+  leve: a fita lê albumina <span class="tag">{CE}</span>
+• PSA 1,8: próstata desce mais um degrau
+
+<b>Padrão:</b> cálcio alto + anemia + rim em queda
+lembram o CRAB (cálcio, rim, anemia, osso),
+eventos que definem mieloma <span class="tag">[IMWG 2014]{D}</span>.
+Ainda é suspeita, não diagnóstico.
+<b>Degrau benigno:</b> hiperparatireoidismo explica
+o cálcio, não o gap nem a anemia; PTH separa.
+<span class="conf">⚠</span> cálcio 11,2 sem sintoma não é urgência
+isolada; sinais de alarme por escrito.</div>
+    </div>
+    <div class="hyp" data-step="2"></div>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="rx-p4" aria-labelledby="rx-t4">
+    <h3>Dia 10 · A imagem confirma o osso, não a causa</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">Laudos colados pelo médico</span>RX coluna lombar: redução da altura de L3
+(fratura por compressão), osteopenia difusa.
+RX crânio: múltiplas lesões líticas pequenas,
+bem delimitadas, sem halo de esclerose.
+RX tórax: sem nódulo ou massa.</div>
+      <div class="doc"><span class="t">O que a skill devolve</span>• a fratura de L3 explica a dor, não explica
+  o laboratório: patológica até prova
+  contrária <span class="tag">{RC}</span>
+• líticas "em saca-bocado" no crânio +
+  osteopenia: padrão de mieloma; metástase
+  lítica (rim, pulmão, tireoide) segue na
+  mesa <span class="tag">{CE}</span>
+• RX de tórax limpo em ex-tabagista: pulmão
+  desce, não sai; RX não exclui
+• lesão lítica é o "B" do CRAB <span class="tag">[IMWG 2014]{D}</span>
+• o padrão para osso é TC de corpo inteiro
+  em baixa dose ou PET-TC; na APS, RX é o
+  que existe, e a hematologia completa
+
+<span class="crit">⚠</span> fratura vertebral: fraqueza nas pernas ou
+perda de controle de urina/fezes = PS no
+mesmo dia (compressão medular).</div>
+    </div>
+    <div class="hyp" data-step="3"></div>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="rx-p5" aria-labelledby="rx-t5">
+    <h3>Dia 20 · Os exames dirigidos fecham o cerco</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">Laudos colados pelo médico</span>Eletroforese de proteínas: pico monoclonal
+na região gama, 3,9 g/dL.
+Imunofixação sérica: IgG kappa.
+Cadeias leves livres: kappa 312 mg/L,
+lambda 6,5 mg/L, relação 48.
+PTH 11 pg/mL.
+Urina 24 h: 1,1 g de proteína;
+imunofixação urinária: kappa livre.</div>
+      <div class="doc"><span class="t">O que a skill devolve</span>• componente monoclonal IgG kappa no
+  sangue e na urina (Bence Jones)
+• a pegadinha do dia 5 confirmada: fita
+  negativa, cadeia leve presente
+• PTH suprimido: o cálcio não é da
+  paratireoide; hiperparatireoidismo sai
+• pico monoclonal não vem de carcinoma:
+  metástase sai da mesa
+• MGUS não tem lesão de órgão; aqui há C,
+  A e B → não é MGUS. Waldenström é IgM
+  → fora. Amiloidose AL pode coexistir
+
+<b>O que falta para o diagnóstico:</b>
+plasmócitos clonais ≥10% na medula ou
+plasmocitoma por biópsia <span class="tag">[IMWG 2014]{D}</span>.
+É exame da hematologia.
+Rascunho: "quadro compatível com mieloma
+múltiplo; aguarda medula". "Provável" só
+se o médico escrever.</div>
+    </div>
+    <div class="hyp" data-step="4"></div>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="rx-p6" aria-labelledby="rx-t6">
+    <h3>Dia 34 · O desfecho e o que ficou com cada um</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que o médico decidiu</span>encaminha hemato prioridade alta.
+escreve "provável mieloma múltiplo".
+na espera: sem AINE, hidratação,
+dipirona; cálcio e creatinina em 1 semana.
+
+─ dia 34, hematologia ─
+mielograma: 28% de plasmócitos clonais
+→ <b>mieloma múltiplo IgG kappa</b>, com
+hipercalcemia, anemia e lesões ósseas.</div>
+      <div class="doc"><span class="t">O que a skill produziu</span>• encaminhamento com a pergunta ao
+  especialista, exames anexados e a origem
+  de cada dado; lint ✓ · rastreio ✓ ·
+  verificador ✓
+• orientação ao paciente: sinais de alarme
+  (confusão, vômitos, sede intensa, fraqueza
+  nas pernas → PS), sem anti-inflamatório,
+  vacinas em dia
+• ficha: pendências "consulta hemato",
+  "cálcio e creatinina em 1 semana", "dor
+  controlada?", para o próximo retorno
+
+<span class="ok">Não fez:</span> examinar, pedir exame, escrever
+"provável", assinar, diagnosticar.</div>
+    </div>
+    <div class="hyp" data-step="5"></div>
+    <p class="note"><b>Em seis passos:</b> a dor lombar foi a mesma do primeiro ao último dia. O que mudou foi cada achado que o médico trouxe, e a escada refeita a cada um, com o degrau benigno excluído em vez de ignorado.</p>
+  </div>
+
+  <div class="rx-nav">
+    <button type="button" class="rx-prev">← Passo anterior</button>
+    <button type="button" class="rx-next">Próximo passo →</button>
+  </div>
+
+  <h3 class="rx-sub">E sem um médico do outro lado?</h3>
+  <div class="cols">
+    <div class="doc"><span class="t">O mesmo caso, digitado por um leigo</span>"meu pai tem 63 anos e dor nas
+costas há 2 meses, o que pode ser?"
+
+A skill devolve as bandeiras vermelhas e
+uma recomendação: procure um médico,
+porque dor noturna com perda de peso
+nessa idade precisa de exame.
+
+E para por aí.</div>
+    <div class="doc"><span class="t">O que só o médico traz</span>• a percussão vertebral, o toque retal,
+  a palidez: sem exame, o passo 2 não existe
+• o pedido de cálcio, eletroforese e
+  imunofixação: só quem pode solicitar
+• o peso de cada hipótese antes do teste
+• a decisão de escrever "provável"
+• a assinatura e a responsabilidade</div>
+  </div>
+  <p class="note">A skill foi feita para receber achado de médico. O valor dela está no meio do caminho: no que você traz a cada passo e no que ela devolve organizado, com fonte e com o próximo exame. Sem conhecimento médico de um lado, ela não tem o que processar.</p>
+  <p class="note" data-r="gestao" hidden><b>Para a gestão:</b> o sistema não diagnostica nem pede exame. O "provável" e o encaminhamento são do médico, que assina; a ferramenta organiza e verifica.</p>
+  <p class="note" data-r="dev" hidden><b>Onde está cada regra:</b> Passo 0 e escada no SKILL.md (§3 e §16); bandeiras em <code>references/dor-msk.md</code>; leitura de exame em <code>references/imagem-laboratorio.md</code>; observado × relato no SKILL.md §4-C; tags de suporte no §4-B.</p>
+</section>
+
 <section id="travas">
   <div class="eyebrow">Segurança</div>
   <h2>Cada trava existe por causa de um erro que aconteceu</h2>
@@ -590,6 +863,7 @@ a parente com exame vira uma pergunta.</div>
         <li>Default de relato: tudo é "refere" salvo você escrever "examinei". O O tem três linhas fixas.</li>
         <li>Tag em cada conduta: {D} {RS} {ECR} {OBS} {CE} {RC}. Livro-texto é {CE}. Sem certeza, diz.</li>
         <li>Documento a terceiro: perguntas de sim/não antes, nunca marca de dúvida no papel, lint e verificador depois.</li>
+        <li>Raciocínio: a cada achado que você traz, a escada é refeita, com fonte e com o exame mais barato que separa as hipóteses. Sem o seu exame e o seu julgamento, ela não tem o que processar.</li>
         <li>Como replicar: a skill é um conjunto de arquivos de texto (regras) mais dois scripts. Roda em qualquer sessão de Claude que a tenha instalada.</li>
       </ul>
     </div>
@@ -678,6 +952,50 @@ a parente com exame vira uma pergunta.</div>
   buttons.forEach(function(b){b.addEventListener('click',function(){setAud(b.dataset.aud);});});
   var saved=null;try{saved=localStorage.getItem('ubs-aud');}catch(e){}
   if(saved==='gestao'||saved==='dev'){setAud(saved);}
+
+
+  // Raciocínio passo a passo: hipóteses por passo. Nível 0 = fora da mesa, 1 baixa, 2 possível, 3 alta, 4 forte, 5 confirmada. null = ainda não na mesa.
+  var HYP=[
+    ['Lombalgia mecânica',[2,1,0,0,0,0],['comum, mas não explica dor noturna nem perda de peso','percussão localizada aponta lesão do corpo vertebral','não explica anemia, cálcio nem gap','—','—','—']],
+    ['Fratura por fragilidade',[2,3,2,1,0,0],['idade; sem trauma','percussão vertebral dolorosa','fratura não explica o laboratório','a fratura existe, mas é patológica','causa encontrada','—']],
+    ['Espondilodiscite',[2,1,1,0,0,0],['dor que não alivia deitado','afebril, sem foco','PCR quase normal','líticas no crânio não são infecção de disco','—','—']],
+    ['Metástase óssea (próstata, pulmão, rim)',[2,2,1,2,0,0],['idade, perda de peso, ex-tabagista','toque sem nódulo: reduz, não exclui','PSA 1,8','líticas também cabem em rim e pulmão','pico monoclonal não vem de carcinoma','—']],
+    ['Mieloma múltiplo',[2,2,3,3,4,5],['dor óssea + infecções de repetição','palidez + dor óssea','cálcio alto + anemia + rim em queda lembram o CRAB','lesões líticas: o "B" do CRAB','IgG kappa + lesão de órgão; falta a medula','28% de plasmócitos clonais na medula']],
+    ['Hiperparatireoidismo primário',[null,null,1,1,0,0],['','','explica o cálcio, não o gap nem a anemia','PTH ainda pendente','PTH suprimido','—']],
+    ['Outra gamopatia (MGUS, Waldenström, amiloidose AL)',[null,null,null,null,1,1],['','','','','MGUS sem lesão de órgão; Waldenström é IgM; AL pode coexistir','AL associada: a hematologia investiga']]
+  ];
+  var LV=['fora da mesa','baixa','possível','alta','forte','confirmada'];
+  document.querySelectorAll('.hyp').forEach(function(box){
+    var k=+box.dataset.step, h='<div class="t">Hipóteses na mesa <span>nível qualitativo · seta = mudou neste passo</span></div>';
+    HYP.forEach(function(r){
+      var v=r[1][k]; if(v===null) return;
+      var p=k>0?r[1][k-1]:null, d='';
+      if(p!==null&&p!==undefined&&v!==p){d=v>p?'<span class="d up" aria-label="subiu">↑</span>':'<span class="d dn" aria-label="desceu">↓</span>';}
+      else d='<span class="d"></span>';
+      var bars='';for(var i=1;i<=5;i++){bars+='<i class="'+(i<=v?'on':'')+'"></i>';}
+      var cls='hrow'+(v===0?' out':'')+(v===5?' conf':'');
+      h+='<div class="'+cls+'"><div class="nm">'+r[0]+'</div><div class="lvl" data-l="'+v+'" role="img" aria-label="'+LV[v]+'">'+bars+d+'</div><div class="why">'+LV[v]+(r[2][k]&&r[2][k]!=='—'?' · '+r[2][k]:'')+'</div></div>';
+    });
+    box.innerHTML=h;
+  });
+  var tabs=[].slice.call(document.querySelectorAll('.rx-tabs [role="tab"]')), cur=0;
+  var prev=document.querySelector('.rx-prev'), next=document.querySelector('.rx-next');
+  function show(i,focus){
+    cur=i;
+    tabs.forEach(function(t,j){var on=j===i;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on;});
+    prev.disabled=i===0; next.disabled=i===tabs.length-1;
+    if(focus) tabs[i].focus();
+  }
+  tabs.forEach(function(t,j){
+    t.addEventListener('click',function(){show(j);});
+    t.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'){e.preventDefault();show((j+1)%tabs.length,true);}
+      if(e.key==='ArrowLeft'){e.preventDefault();show((j-1+tabs.length)%tabs.length,true);}
+    });
+  });
+  prev.addEventListener('click',function(){if(cur>0)show(cur-1);});
+  next.addEventListener('click',function(){if(cur<tabs.length-1){show(cur+1);document.getElementById('raciocinio').scrollIntoView({block:'start'});}});
+  show(0);
 
   // Benchmark: asserções aprovadas / total por caso, com e sem a skill (iteração 3, 04/11/2026, rodada única)
   var data=[
