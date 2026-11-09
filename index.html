@@ -142,6 +142,17 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
 .sig small{display:block;font-weight:400;color:var(--fg-2);font-family:var(--body);margin-top:6px;max-width:68ch}
 .ficcao{font-size:13px;color:var(--fg-2);border:1px dashed var(--line);padding:8px 12px;display:inline-block;margin-bottom:16px}
 @media (prefers-reduced-motion:no-preference){.stage{scroll-margin-top:70px}}
+/* pós-consulta */
+.fluxo{list-style:none;counter-reset:f;padding:0;margin:18px 0 6px;display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:8px}
+.fluxo li{counter-increment:f;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--accent);padding:10px 12px;font-size:14px}
+.fluxo li::before{content:counter(f);font-family:var(--display);font-weight:800;font-size:20px;color:var(--accent);display:block;line-height:1;margin-bottom:6px}
+.fluxo li b{display:block;font-family:var(--display);font-size:15px}
+.fluxo li span{color:var(--fg-2);font-size:13px;display:block;margin-top:2px}
+.pdfgal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:4px 0 12px}
+.pdfgal a{display:block;border:1px solid var(--line);background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pdfgal img{display:block;width:100%;height:auto}
+.pdfgal a:hover{border-color:var(--accent)}
+@media (max-width:760px){.pdfgal{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* raciocínio passo a passo */
 .rx-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0;border-bottom:1px solid var(--line);padding-bottom:10px}
 .rx-tabs button{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);color:var(--fg-2);font:inherit;font-size:14px;padding:6px 12px 6px 6px;border-radius:999px;cursor:pointer}
@@ -182,7 +193,7 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
 <header class="hdr">
   <div class="eyebrow">Teleconsulta assistida · skill v3.8.17</div>
   <h1>UBS Profissa</h1>
-  <p class="lede">Uma interface entre Claude e um médico de família. Não é um chatbot que responde ao paciente: o médico conduz a consulta e decide; o sistema estrutura o que foi dito, verifica o que vai para o papel e documenta. Esta página mostra, num caso fictício, uma teleconsulta que parecia resolvida e o que a ferramenta encontrou nela; depois, para colegas, um caso de raciocínio clínico passo a passo; por fim, as travas de segurança e o que o teste automatizado mede.</p>
+  <p class="lede">Uma interface entre Claude e um médico de família. Não é um chatbot que responde ao paciente: o médico conduz a consulta e decide; o sistema estrutura o que foi dito, verifica o que vai para o papel e documenta. Esta página mostra, num caso fictício, uma teleconsulta que parecia resolvida e o que a ferramenta encontrou nela; depois, para colegas, o que o paciente leva para casa e como as perguntas voltam cifradas, e um caso de raciocínio clínico passo a passo; por fim, as travas de segurança e o que o teste automatizado mede.</p>
   <div class="meta">
     <span>Versão da skill: v3.8.17 (05/11/2026)</span>
     <span>Benchmark: iteração 3 + três baterias de segurança</span>
@@ -197,7 +208,7 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
     <button type="button" id="aud-dev" data-aud="dev" aria-pressed="false">Desenvolvedor</button>
   </div>
   <nav>
-    <a href="#pipeline">Pipeline</a><a href="#raciocinio">Raciocínio</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#instalar">Instalar</a><a href="#limites">Limites</a>
+    <a href="#pipeline">Pipeline</a><a href="#posconsulta">Pós-consulta</a><a href="#raciocinio">Raciocínio</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#instalar">Instalar</a><a href="#limites">Limites</a>
   </nav>
 </div>
 
@@ -505,6 +516,101 @@ a parente com exame vira uma pergunta.</div>
   </article>
 </section>
 
+
+<section id="posconsulta">
+  <div class="eyebrow">Para colegas · depois da consulta</div>
+  <h2>O que o paciente leva para casa, e como a conversa continua</h2>
+  <div class="ficcao">Caso fictício. A estrutura vem dos materiais reais do consultório; a pessoa, as falas e os números do exemplo são inventados.</div>
+  <p>O pipeline acima mostra o que vira prontuário. Esta parte mostra o resto: o papel que o paciente recebe no mesmo dia e as perguntas que voltam, cifradas, antes do retorno, sem precisar marcar consulta. O caso é de uma mulher de 52 anos, em teleconsulta, com calorões, insônia e uma pressão de farmácia de 13,8 por 8,8.</p>
+
+  <ol class="fluxo">
+    <li><b>Videoconsulta</b><span>gravada, com o consentimento dito no início</span></li>
+    <li><b>Transcrição</b><span>da própria plataforma; usada e descartada</span></li>
+    <li><b>Análise</b><span>tabela de confirmação, a resposta do médico, depois SOAP e ficha</span></li>
+    <li><b>PDF ao paciente</b><span>no mesmo dia, em linguagem dela</span></li>
+    <li><b>Questionário</b><span>link de endereço aleatório, dias antes do retorno</span></li>
+    <li><b>Código cifrado</b><span>volta pelo WhatsApp; a skill abre e organiza</span></li>
+    <li><b>Página apagada</b><span>o retorno começa com as respostas na mesa</span></li>
+  </ol>
+
+  <h3 class="rx-sub">O PDF: um resumo para usar, não para arquivar</h3>
+  <div class="pdfgal">
+    <a href="exemplo/exemplo-pos-consulta.pdf" target="_blank" rel="noopener"><img src="exemplo/pag-1.webp" width="662" height="936" alt="Página 1: cabeçalho da clínica, título Resumo da nossa conversa, tabela com as falas da paciente e o que cada uma indica"></a>
+    <a href="exemplo/exemplo-pos-consulta.pdf" target="_blank" rel="noopener"><img src="exemplo/pag-2.webp" width="662" height="936" alt="Página 2: o que vamos fazer agora, diário do sono de 7 dias e tabela da pressão em casa"></a>
+    <a href="exemplo/exemplo-pos-consulta.pdf" target="_blank" rel="noopener"><img src="exemplo/pag-3.webp" width="662" height="936" alt="Página 3: exames pedidos com o motivo de cada um, aviso do questionário pelo celular e quando procurar antes"></a>
+    <a href="exemplo/exemplo-pos-consulta.pdf" target="_blank" rel="noopener"><img src="exemplo/pag-4.webp" width="662" height="936" alt="Página 4: próxima conversa, o que trazer, anotações e assinatura"></a>
+  </div>
+  <p><a class="btn" href="exemplo/exemplo-pos-consulta.pdf" download>Baixar o PDF de exemplo</a> <span class="note-inline">4 páginas · exemplo fictício</span></p>
+
+  <div class="cols">
+    <div class="doc"><span class="t">Anatomia do papel</span><b>as palavras dela</b>, entre aspas, ao lado do
+que cada uma diz ao médico
+<b>como eu entendi o caso</b>, em linguagem
+simples, e o que ainda não se sabe, dito
+<b>o que muda agora</b>; no retorno, uma caixa
+"o que mudou desde o papel anterior"
+<b>tabelas para preencher</b> em casa: diário,
+pressão em 7 dias. São os dados da
+próxima consulta
+<b>cada exame com o porquê</b>
+<b>quando procurar antes</b>, separado do
+PS, do SAMU 192 e do CVV 188
+<b>a próxima conversa</b>: data, o que trazer,
+espaço para anotar
+<b>rodapé</b>: material educativo, não documento
+oficial; apoio de ferramenta sob
+responsabilidade do médico (CFM 2.454/2026)</div>
+    <div>
+      <div class="doc"><span class="t">Outros papéis que o caso pode pedir</span>• plano de crise, para ler na hora ruim
+• guia de exercícios entre consultas
+• diário de 4 semanas com uma pergunta
+  por semana
+• orientações à família ou à equipe de
+  uma instituição de longa permanência
+• encaminhamento com a pergunta ao
+  especialista, a escada e os exames</div>
+      <p class="note" data-r="colega"><b>Por que tabela em branco:</b> o papel não termina na consulta. O que ela anotar em casa (sono, calorão, pressão) é o que vai decidir o tratamento no retorno. Sem a tabela, o retorno começa do zero.</p>
+      <p class="note" data-r="gestao" hidden><b>Natureza do documento:</b> material educativo, com rodapé que o separa de atestado, laudo e prontuário. Não leva CID nem identificação além do nome escrito à mão pela paciente.</p>
+      <p class="note" data-r="dev" hidden><b>Onde mexer:</b> regra 8 (material educativo) no SKILL.md; saídas do processador em <code>references/processador-consulta.md</code>. O PDF é gerado em ReportLab com a identidade da clínica reconstruída em vetor.</p>
+    </div>
+  </div>
+
+  <h3 class="rx-sub">O questionário: as perguntas voltam sem marcar consulta</h3>
+  <ol class="passos">
+    <li><b>As perguntas saem das pendências do caso.</b> Pressão em 7 dias, sono, calorão, humor, exames. A página é montada a partir dessa lista.</li>
+    <li><b>Publicada num endereço aleatório.</b> Uma pasta de 16 caracteres no site, marcada para não aparecer em busca. O link vai por WhatsApp.</li>
+    <li><b>Respondida no celular.</b> O que a paciente escreve fica salvo no aparelho; ela pode parar e voltar. Nada vai para servidor nenhum.</li>
+    <li><b>Gerar código.</b> As respostas saem cifradas com a chave pública do médico. Só a chave dele, derivada da senha mestra, abre. Se ela marcar pensamento de morte, a tela mostra CVV 188 e SAMU 192 na hora.</li>
+    <li><b>O código volta.</b> O médico cola na conversa; a skill decifra, organiza em tabela, sinaliza risco e atualiza as pendências da ficha.</li>
+    <li><b>A página é apagada.</b> O retorno começa com as respostas já lidas.</li>
+  </ol>
+  <div class="cols" style="margin-top:14px">
+    <div class="doc"><span class="t">O que a paciente vê</span>Antes da nossa conversa
+  Sono · Calorão · Pressão em casa
+  Como você está · Para a nossa conversa
+[ Gerar código ]
+
+Pronto. Obrigado.
+Copie o código e mande para o Felipe.
+<span class="tag">UBS1.53bVvdw7T6iIkGCQxnwTR/8fdt1MkL2B…</span>
+[ Copiar ]  [ Enviar pelo WhatsApp ]</div>
+    <div class="doc"><span class="t">O que a skill devolve ao abrir</span>questionário exemplo-perimenopausa
+respondido 27/11 · risco: <span class="ok">não</span>
+
+sono     acorda 3×/noite · nota 4/10
+calorão  6 por dia · atrapalha 7/10
+pressão  7 dias completos (foto da tabela)
+exames   alguns; falta TSH
+pergunta "dá para tratar sem hormônio?"
+
+ficha    MRPA → fechada · TSH → aberta
+retorno  briefing já sai com isto na mesa</div>
+  </div>
+  <p><a class="btn" href="questionario-exemplo.html" target="_blank" rel="noopener">Abrir o questionário de exemplo</a> <span class="note-inline">funciona de verdade, inclusive a cifra; a chave é de teste e foi descartada, então nenhum código gerado pode ser aberto</span></p>
+  <p class="note"><b>Em validação.</b> O questionário cifrado entrou na prática em novembro de 2026 e ainda não é regra da skill: vira regra depois das primeiras respostas reais. O site está num repositório público. O endereço aleatório impede busca e chute, mas o histórico do git guarda páginas apagadas. Por isso o questionário nunca leva nome nem dado que identifique, e as respostas nunca passam pelo site. Escala validada (PHQ-9, GAD-7) só entra com o texto oficial.</p>
+  <p class="note" data-r="gestao" hidden><b>LGPD:</b> a resposta sai do celular só cifrada; a chave que abre fica com o médico; a página não guarda resposta e é apagada depois do uso. A autorização para ler e a opção de recusar o apoio da ferramenta são as primeiras perguntas.</p>
+  <p class="note" data-r="dev" hidden><b>Como é feito:</b> uma página estática gerada de uma lista de perguntas em JSON; cifra com <code>nacl.box</code> (X25519 + XSalsa20-Poly1305), chave efêmera por envio; o código é <code>UBS1.</code> + chave efêmera + nonce + cifra, em base64. O decifrador deriva a chave privada da senha mestra.</p>
+</section>
 
 <section id="raciocinio">
   <div class="eyebrow">Para colegas · raciocínio clínico</div>
