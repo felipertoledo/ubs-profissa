@@ -185,6 +185,18 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
 .rx-nav button:disabled{opacity:.4;cursor:default}
 .rx-sub{margin:34px 0 12px}
 @media (prefers-reduced-motion:no-preference){#raciocinio{scroll-margin-top:70px}}
+.real{font-size:13px;color:var(--fg);border:1px solid var(--accent);border-left-width:4px;background:var(--accent-2);padding:8px 12px;display:inline-block;margin-bottom:16px;max-width:68ch}
+.tl{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:0;margin:18px 0 6px;padding:0;border-top:2px solid var(--line)}
+.tl li{position:relative;padding:14px 10px 0 0;font-size:13px;color:var(--fg-2);line-height:1.35}
+.tl li::before{content:"";position:absolute;top:-6px;left:0;width:10px;height:10px;border-radius:50%;background:var(--paper);border:2px solid var(--accent)}
+.tl li.key::before{background:var(--accent)}
+.tl li.stop::before{background:var(--crit);border-color:var(--crit)}
+@media (max-width:640px){.tl{grid-template-columns:1fr;border-top:0;border-left:2px solid var(--line);margin-left:5px}.tl li{padding:0 0 12px 16px}.tl li::before{top:3px;left:-7px}}
+.tl b{display:block;font-family:var(--display);font-size:13px;color:var(--fg);letter-spacing:.02em}
+.err{margin:0;padding-left:20px;max-width:68ch}
+.err li{margin:6px 0}
+.err s{color:var(--fg-2)}
+@media (prefers-reduced-motion:no-preference){#casoreal{scroll-margin-top:70px}}
 </style>
 </head>
 <body>
@@ -208,7 +220,7 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
     <button type="button" id="aud-dev" data-aud="dev" aria-pressed="false">Desenvolvedor</button>
   </div>
   <nav>
-    <a href="#pipeline">Pipeline</a><a href="#posconsulta">Pós-consulta</a><a href="#raciocinio">Raciocínio</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#instalar">Instalar</a><a href="#limites">Limites</a>
+    <a href="#pipeline">Pipeline</a><a href="#posconsulta">Pós-consulta</a><a href="#raciocinio">Raciocínio</a><a href="#casoreal">Caso real</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#instalar">Instalar</a><a href="#limites">Limites</a>
   </nav>
 </div>
 
@@ -852,6 +864,328 @@ E para por aí.</div>
   <p class="note" data-r="dev" hidden><b>Onde está cada regra:</b> Passo 0 e escada no SKILL.md (§3 e §16); bandeiras em <code>references/dor-msk.md</code>; leitura de exame em <code>references/imagem-laboratorio.md</code>; observado × relato no SKILL.md §4-C; tags de suporte no §4-B.</p>
 </section>
 
+<section id="casoreal">
+  <div class="eyebrow">Para colegas · caso real</div>
+  <h2>O homem que não engolia, e a doença que nenhuma imagem mostra</h2>
+  <div class="real"><b>Caso real.</b> O paciente autorizou por escrito a divulgação da sua história. Está identificado por iniciais; as datas são relativas à primeira consulta (dia 0) e nenhum serviço ou profissional é nomeado.</div>
+  <p>R.G.S., 57 anos, trabalhador rural. Meses de disfagia progressiva depois de um acidente de trabalho, investigação de imagem sem lesão que explicasse o quadro, três avaliações neurológicas. O diagnóstico saiu de um exame à beira do leito que não custa nada e de uma pergunta dirigida a um exame que já tinha sido feito sem ela.</p>
+  <p>O caso anterior foi fictício; este não. Aqui o raciocínio não anda em linha reta, a ferramenta erra e o sistema de saúde entra na história. Clique em cada passo.</p>
+
+  <ol class="tl" aria-label="Linha do tempo do caso">
+    <li><b>Dias −36 a −2</b>TC, RM cervical, endoscopia: sem lesão</li>
+    <li class="key"><b>Dia 0</b>Primeira consulta na unidade</li>
+    <li><b>Dia 10</b>Eletroneuromiografia só dos braços</li>
+    <li><b>Dia 26</b>RM de encéfalo sem lesão</li>
+    <li class="key"><b>Dia 28</b>Exame de fatigabilidade</li>
+    <li class="key"><b>Dia 40</b>Decremento: miastenia gravis</li>
+    <li class="stop"><b>Dia 41</b>Internação recusada sem regulação</li>
+  </ol>
+
+  <div class="rx-tabs" role="tablist" aria-label="Passos do caso real">
+    <button type="button" role="tab" id="cr-t1" aria-controls="cr-p1" aria-selected="true"><b>1</b><span>História</span></button>
+    <button type="button" role="tab" id="cr-t2" aria-controls="cr-p2" aria-selected="false" tabindex="-1"><b>2</b><span>Imagem</span></button>
+    <button type="button" role="tab" id="cr-t3" aria-controls="cr-p3" aria-selected="false" tabindex="-1"><b>3</b><span>Sem lesão</span></button>
+    <button type="button" role="tab" id="cr-t4" aria-controls="cr-p4" aria-selected="false" tabindex="-1"><b>4</b><span>Fatigabilidade</span></button>
+    <button type="button" role="tab" id="cr-t5" aria-controls="cr-p5" aria-selected="false" tabindex="-1"><b>5</b><span>A pergunta</span></button>
+    <button type="button" role="tab" id="cr-t6" aria-controls="cr-p6" aria-selected="false" tabindex="-1"><b>6</b><span>Decremento</span></button>
+    <button type="button" role="tab" id="cr-t7" aria-controls="cr-p7" aria-selected="false" tabindex="-1"><b>7</b><span>O sistema</span></button>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="cr-p1" aria-labelledby="cr-t1">
+    <h3>Dia 0 · A história que puxa para o lugar errado</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que o médico trouxe</span>homem, 57 a, operador de trator.
+meses antes: crise epiléptica no trabalho,
+queda do trator, esmagamento do tórax,
+duas costelas fraturadas.
+
+desde o acidente: a comida "trava" na base
+do pescoço. começou com sólidos, passou
+a líquidos. tosse ao engolir, voz molhada,
+<mark>comida volta pelo nariz</mark>. fala enrolada.
+a cabeça cai e ele levanta com a mão.
+<mark>piora ao longo da refeição e varia
+entre os dias</mark>. de 68 para cerca de 60 kg,
+com fome preservada.</div>
+      <div class="doc"><span class="t">O que foi para a mesa</span><b>⚑ Passo 0</b> presencial · USF · história
+segundo paciente e família · exames
+anteriores por laudo
+
+Regurgitação nasal + voz molhada + tosse
+ao engolir: a disfagia é <b>orofaríngea</b>, de
+padrão neuromuscular. Não é do esôfago.
+
+<b>Escada</b> 1) lesão estrutural: massa, base
+do crânio, mielopatia → 2) lesão de nervos
+cranianos baixos pelo trauma →
+3) neoplasia oculta → 4) miastenia
+bulbar → 5) doença do neurônio motor
+<b>Primeiro passo:</b> ler o que a imagem já
+feita exclui, antes de pedir mais.</div>
+    </div>
+    <div class="hyp" data-step="0"></div>
+    <p class="note"><b>A armadilha:</b> acidente, fratura e epilepsia contam uma história coerente de lesão. Os dois detalhes marcados, piora ao longo da refeição e variação entre os dias, já apontavam para outro lugar, mas ainda eram só relato.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="cr-p2" aria-labelledby="cr-t2">
+    <h3>Dias −36 a −2 · A imagem procura a lesão e não acha</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">Laudos que ele já tinha</span>TC de crânio: microangiopatia; sem lesão
+expansiva, hemorragia ou infarto agudo.
+
+RM de coluna cervical: protrusões
+C5-C6 e C6-C7 <span class="ok">sem repercussão medular</span>;
+medula com sinal normal.
+
+Endoscopia: <span class="ok">esôfago normal</span> em toda
+a extensão.
+
+TC de tórax: fraturas de costela, uma
+não consolidada; sem massa.
+TC de abdome e pelve: sem massa.</div>
+      <div class="doc"><span class="t">O que mudou na mesa</span>• massa e mielopatia cervical: <span class="ok">excluídas</span>,
+  não ignoradas
+• esôfago normal confirma: a disfagia
+  é alta
+• neoplasia cai, não some: a perda de
+  peso ainda pede explicação
+• nervo craniano baixo cai: não há lesão
+  de base do crânio
+
+Sobram duas doenças que <b>imagem não
+enxerga</b>: miastenia e neurônio motor.
+
+<b>Pulei degrau?</b> Não. O estrutural era o
+degrau perigoso e foi testado primeiro.</div>
+    </div>
+    <div class="hyp" data-step="1"></div>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="cr-p3" aria-labelledby="cr-t3">
+    <h3>Dia 26 · A ressonância sem lesão vira dado</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que o médico trouxe</span>RM de encéfalo com contraste:
+sem formação expansiva, sem hemorragia,
+sem restrição à difusão. Só focos de
+microangiopatia (Fazekas 1).
+
+E a frase dele, literal:
+
+"to achando extremamente
+desconfortante a ausencia de achados
+nesse caso"</div>
+      <div class="doc"><span class="t">O que mudou na mesa</span>O desconforto é o raciocínio certo.
+
+Doente que piora, sem lesão que explique:
+o problema está onde a imagem não
+alcança — <b>placa motora, neurônio motor
+ou músculo</b>. Ressonância sem lesão não
+exclui nenhum dos três.
+
+O que falta não é mais imagem:
+• estimulação repetitiva
+• agulha em território bulbar
+• anti-AChR e anti-MuSK
+• alguém que examine a fadiga</div>
+    </div>
+    <div class="hyp" data-step="2"></div>
+    <p class="note"><b>O que mudou:</b> o exame normal deixou de ser lido como "não achamos nada" e passou a ser lido como "não é desse tipo". É a mesma folha de laudo; muda a pergunta.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="cr-p4" aria-labelledby="cr-t4">
+    <h3>Dia 28 · O exame que não custa nada</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que o médico examinou</span>SpO₂ 98 · FR 13 · FC 80 · 60,7 kg
+
+contar de 1 a 50 em voz alta:
+  voz anasalada aos 15
+  fraca aos 22
+  <span class="crit">interrompe aos 25</span>
+braços estendidos: cede em 15 s
+flexão do pescoço, deitado: 15 s
+olhar para cima por 60 s: sem alteração
+
+<span class="crit">contagem em uma expiração: 8</span>
+<span class="crit">não consegue tossir</span>
+voz molhada depois de um gole de água</div>
+      <div class="doc"><span class="t">O que mudou na mesa</span>"examinei" → registrado como <span class="ok">observado</span>
+
+Fraqueza que <b>cansa</b> aponta para a placa
+motora. Faltar sinal ocular não afasta:
+existe a forma bulbar, inclusive
+anti-MuSK <span class="tag">{CE}</span>
+
+<span class="crit">⚡ Sinal crítico:</span> contagem de 8 com
+tosse ineficaz é risco ventilatório.
+<b>A saturação de 98% não tranquiliza</b>:
+na fraqueza neuromuscular ela cai tarde.
+
+Saíram no mesmo dia: pedido urgente de
+estimulação repetitiva e anticorpos,
+e encaminhamento à neurologia.</div>
+    </div>
+    <div class="hyp" data-step="3"></div>
+    <p class="note"><b>Onde médico e ferramenta divergiram:</b> nesse dia o médico decidiu acompanhar o paciente em casa. A ferramenta registrou a discordância uma vez, com o argumento, e seguiu a decisão dele. Quem examina e assina decide.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="cr-p5" aria-labelledby="cr-t5">
+    <h3>O laudo que respondeu a outra pergunta</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que chegou</span>Eletroneuromiografia do dia 10, pedida
+por outro médico: só membros superiores.
+
+Condução normal. Desnervação ativa na
+musculatura paravertebral cervical à
+direita; reinervação em C7.
+
+Conclusão: radiculopatia cervical
+crônica C7 à direita.
+
+<span class="conf">Sem estimulação repetitiva.
+Sem estudo de face, língua ou pernas.</span></div>
+      <div class="doc"><span class="t">O que mudou na mesa</span>O exame não está errado. Ele respondeu
+ao que perguntaram: raiz cervical.
+
+A pergunta do caso é outra: <b>placa
+motora ou neurônio motor?</b>
+
+• a desnervação cervical é sinal de
+  neurônio motor ou só a raiz do trauma?
+  Sozinha, não separa.
+
+Mensagem direta ao neurofisiologista,
+com a dúvida e o pedido: estimulação
+repetitiva e agulha fora do território
+cervical.</div>
+    </div>
+    <div class="hyp" data-step="4"></div>
+    <p class="note"><b>O que mudou:</b> nada nas hipóteses, tudo no pedido. Um exame responde à pergunta que se faz a ele. O complemento foi feito doze dias depois do pedido, e o colega avisou o resultado por mensagem antes de laudar.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="cr-p6" aria-labelledby="cr-t6">
+    <h3>Dia 40 · Decremento</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">Laudo colado pelo médico</span>Estimulação repetitiva de baixa
+frequência: <mark>decremento patológico</mark> nos
+músculos nasal, digástrico, deltoide,
+abdutor do dígito mínimo e tibial
+anterior.
+
+Agulha em face, parede abdominal e
+membros inferiores: sem anormalidades
+em repouso; unidades motoras normais.
+
+Conclusão: compatível com disfunção da
+junção neuromuscular (miastenia gravis).
+Sem evidências de doença do neurônio
+motor.</div>
+      <div class="doc"><span class="t">O que a skill devolve</span><span class="crit">⚡ Saiu do escopo da atenção primária.</span>
+
+Miastenia gravis com acometimento bulbar
+e fraqueza respiratória. A radiculopatia
+C7 fica como achado do trauma.
+
+• internação: imunoglobulina ou
+  plasmaférese, com vigilância
+  ventilatória <span class="tag">[PCDT Miastenia Gravis,
+  MS 2022]{D}</span>
+• anticorpos colhidos antes da
+  imunoterapia: definem o subtipo
+• PPD reator na investigação paralela:
+  informar a quem for imunossuprimir
+
+<span class="ok">Não fez:</span> escolher o tratamento.
+Isso é da especialidade.</div>
+    </div>
+    <div class="hyp" data-step="5"></div>
+    <p class="note"><b>Em quarenta dias:</b> a doença era tratável desde o começo. O que a escondia era uma história plausível de trauma e a falta de sinal ocular, que é a apresentação da miastenia que mais atrasa diagnóstico.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="cr-p7" aria-labelledby="cr-t7">
+    <h3>Dias 40 e 41 · O diagnóstico não abre a porta</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que aconteceu</span>dia 40, fim da tarde: encaminhamento
+completo ao pronto-socorro do hospital
+universitário de referência, com o
+laudo em mãos.
+
+dia 41, manhã, mensagem da família:
+<span class="crit">"Não vai interna"</span>
+<span class="crit">"Disse que tem que entrar pelo cross"</span>
+
+dia 41: novo encaminhamento, para
+internação no hospital municipal da
+cidade vizinha, com pedido de inserção
+na regulação estadual.
+
+<span class="conf">Desfecho: em aberto.</span></div>
+      <div class="doc"><span class="t">O que a skill produziu</span>• dois encaminhamentos completos:
+  história, exame, processo diagnóstico,
+  todos os laudos e o pedido;
+  lint ✓ · rastreio ✓ · verificador ✓
+• a recusa registrada no topo do segundo,
+  atribuída a quem a relatou
+• lista de fármacos que agravam a
+  miastenia, para médico e família
+• o que vigiar enquanto a vaga não sai:
+  contagem em uma expiração, tosse,
+  deglutição de saliva
+
+<span class="ok">Não fez:</span> conseguir a vaga. Nenhuma
+ferramenta faz. O que ela faz é deixar
+o caso impossível de ignorar no papel.</div>
+    </div>
+    <div class="hyp" data-step="6"></div>
+    <p class="note"><b>Sem desfecho ainda.</b> Esta página será atualizada quando houver. Um diagnóstico firmado e um tratamento disponível não bastam se a porta do serviço depende de uma regulação que a origem não alcança.</p>
+  </div>
+
+  <div class="rx-nav">
+    <button type="button" class="rx-prev">← Passo anterior</button>
+    <button type="button" class="rx-next">Próximo passo →</button>
+  </div>
+
+  <h3 class="rx-sub">O que o caso ensina</h3>
+  <div class="cols">
+    <div class="doc"><span class="t">Cinco lições clínicas</span>1. Imagem sem lesão, em doente que
+   piora, é dado. Não é tranquilização.
+2. Fatigabilidade não aparece sem
+   provocar: contar até 50, sustentar
+   braços e pescoço, contar em uma
+   expiração.
+3. Saturação normal não exclui
+   hipoventilação: 98% com contagem de 8.
+4. O exame responde à pergunta que se
+   faz a ele.
+5. Miastenia pode vir sem sinal ocular,
+   com quadro bulbar, cervical e
+   respiratório.</div>
+    <div class="doc"><span class="t">O que só o médico trouxe</span>• o incômodo com a ressonância limpa
+• a ideia de fazer o paciente contar
+  até 50 e sustentar os braços
+• a contagem em uma expiração e a
+  tosse, examinadas, não perguntadas
+• a mensagem direta ao colega da
+  neurofisiologia
+• a decisão de encaminhar no mesmo dia
+• o vínculo com a família, que avisou
+  da recusa em minutos</div>
+  </div>
+
+  <h3 class="rx-sub">Onde a ferramenta errou neste caso</h3>
+  <p>Os erros abaixo aconteceram de verdade, neste caso, e foram pegos antes de chegar a um terceiro: pelo médico, pelo rastreio ou pelo verificador independente.</p>
+  <ul class="err">
+    <li>Calculou a perda de peso em <s>12%</s>. O verificador refez a conta: 10,7%.</li>
+    <li>Escreveu <s>"ortopneia"</s> num documento. O médico tinha respondido "não". Saiu.</li>
+    <li>Registrou condutas que o médico não tinha dito, como <s>"família orientada"</s>. Saíram.</li>
+    <li>Voltou a um registro antigo e escreveu <s>"febre vespertina"</s>. A pergunta original era composta e só a sudorese estava estabelecida. O verificador bloqueou.</li>
+    <li>Juntou o nome de uma clínica ao sobrenome de um colega. Corrigido na versão seguinte.</li>
+    <li>Gerou um PDF que ninguém pediu. Virou regra: documento só sai sob comando.</li>
+  </ul>
+  <p class="note">É por isso que cada documento passa por três verificações antes de sair, e é por isso que a decisão não é da ferramenta. Ela ajudou a manter o diferencial aberto e a documentar; o diagnóstico é de quem examinou.</p>
+  <p class="note" data-r="gestao" hidden><b>Para a gestão:</b> o caso real foi publicado com autorização escrita do paciente, sem nome, data de nascimento, documento ou serviço identificado. O percurso mostra um custo que não aparece em indicador: um diagnóstico tratável levou quarenta dias para ser fechado a partir da atenção primária, e o leito que o trata depende de uma regulação que o município não acessa.</p>
+  <p class="note" data-r="dev" hidden><b>Onde está cada regra:</b> escada e Passo 0 no SKILL.md (§3 e §16); sinal crítico no §3; observado × relato e fontes divergentes no §4-C; divergência do médico registrada uma vez no §11; lint, rastreio e verificador em <code>references/check-final.md</code>; desidentificação no §5-B.</p>
+</section>
+
 <section id="travas">
   <div class="eyebrow">Segurança</div>
   <h2>Cada trava existe por causa de um erro que aconteceu</h2>
@@ -990,7 +1324,7 @@ E para por aí.</div>
         <li>Fonte única: a skill instalada é a versão do <code>main</code>, com uma tag git por versão. Qualquer cópia em outro lugar é espelho.</li>
         <li>Mudança: partir da versão instalada, editar por âncora, nunca reescrever de memória; subir a versão em três lugares; rodar os testes; reempacotar; commit e tag.</li>
         <li>Testes: os casos-teste e o gabarito ficam fora de qualquer lugar que o modelo consulte durante a execução; senão ele acha a resposta e o teste não mede nada.</li>
-        <li>Dados de paciente nunca entram no repositório, nos testes ou na memória do modelo. Casos-teste são fictícios ou desidentificados antes de entrar.</li>
+        <li>Dados de paciente nunca entram no repositório, nos testes ou na memória do modelo. Casos-teste são fictícios ou desidentificados antes de entrar. A única exceção nesta página é o caso real, publicado com autorização escrita do paciente e sem identificadores.</li>
         <li>Para adaptar a outra prática: trocar a seção de território e rede, o formulário de medicamentos e o cabeçalho dos documentos; as travas e o pipeline não dependem do lugar.</li>
       </ul>
     </div>
@@ -1041,7 +1375,7 @@ E para por aí.</div>
     <li>Nenhum resultado clínico é prometido. O que se mede é comportamento do sistema contra regras, não desfecho de paciente.</li>
   </ul>
   <div class="sig">Felipe Ribeiro Toledo — Médico — CRM-SP 216.986
-    <small>Página elaborada com apoio de ferramenta computacional sob revisão e responsabilidade do médico signatário (Res. CFM 2.454/2026). Exemplos fictícios; nenhum dado de paciente. Manual completo: <a href="https://claude.ai/artifact/22tRUDYGqFmyiRW1Gr8LQz">UBS Profissa — Como o framework funciona</a>.</small>
+    <small>Página elaborada com apoio de ferramenta computacional sob revisão e responsabilidade do médico signatário (Res. CFM 2.454/2026). Exemplos fictícios, exceto o caso real, publicado com autorização escrita do paciente, identificado por iniciais e com datas relativas. Manual completo: <a href="https://claude.ai/artifact/22tRUDYGqFmyiRW1Gr8LQz">UBS Profissa — Como o framework funciona</a>.</small>
   </div>
 </section>
 </div>
@@ -1061,7 +1395,7 @@ E para por aí.</div>
 
 
   // Raciocínio passo a passo: hipóteses por passo. Nível 0 = fora da mesa, 1 baixa, 2 possível, 3 alta, 4 forte, 5 confirmada. null = ainda não na mesa.
-  var HYP=[
+  var HYP_A=[
     ['Lombalgia mecânica',[2,1,0,0,0,0],['comum, mas não explica dor noturna nem perda de peso','percussão localizada aponta lesão do corpo vertebral','não explica anemia, cálcio nem gap','—','—','—']],
     ['Fratura por fragilidade',[2,3,2,1,0,0],['idade; sem trauma','percussão vertebral dolorosa','fratura não explica o laboratório','a fratura existe, mas é patológica','causa encontrada','—']],
     ['Espondilodiscite',[2,1,1,0,0,0],['dor que não alivia deitado','afebril, sem foco','PCR quase normal','líticas no crânio não são infecção de disco','—','—']],
@@ -1070,38 +1404,51 @@ E para por aí.</div>
     ['Hiperparatireoidismo primário',[null,null,1,1,0,0],['','','explica o cálcio, não o gap nem a anemia','PTH ainda pendente','PTH suprimido','—']],
     ['Outra gamopatia (MGUS, Waldenström, amiloidose AL)',[null,null,null,null,1,1],['','','','','MGUS sem lesão de órgão; Waldenström é IgM; AL pode coexistir','AL associada: a hematologia investiga']]
   ];
+  // Caso real (seção #casoreal): mesmas regras de nível; sete passos.
+  var HYP_B=[
+    ['Lesão estrutural (massa, base do crânio, mielopatia)',[3,0,0,0,0,0,0],['o trauma puxa o raciocínio para cá','TC e RM sem massa e sem compressão medular','—','—','—','—','—']],
+    ['Lesão de nervos cranianos baixos pelo trauma',[3,2,1,1,1,0,0],['começou depois do acidente','sem lesão de base do crânio na TC','RM sem lesão no trajeto','não explica fraqueza que cansa','—','decremento em braço e perna não é de nervo craniano','—']],
+    ['Neoplasia oculta',[2,1,1,1,1,0,0],['perda de peso','tórax e abdome sem massa','—','o peso cai porque ele não engole','—','causa encontrada','—']],
+    ['Doença do neurônio motor de início bulbar',[2,2,3,3,3,1,1],['quadro bulbar progressivo','a imagem não a enxerga','imagem sem lesão a mantém na mesa','segue possível; fatigabilidade não é o típico','desnervação cervical: sinal a favor ou só a raiz?','agulha limpa em face, abdome e pernas','sem evidência no exame; a evolução confirma']],
+    ['Miastenia gravis de forma bulbar',[2,2,3,4,4,5,5],['piora ao longo da refeição e varia entre os dias','a imagem não a enxerga','imagem sem lesão a mantém na mesa','fraqueza que cansa; faltar sinal ocular não afasta','o exame não testou a placa motora','decremento patológico em cinco músculos','falta a sorologia para definir o subtipo']]
+  ];
   var LV=['fora da mesa','baixa','possível','alta','forte','confirmada'];
-  document.querySelectorAll('.hyp').forEach(function(box){
-    var k=+box.dataset.step, h='<div class="t">Hipóteses na mesa <span>nível qualitativo · seta = mudou neste passo</span></div>';
-    HYP.forEach(function(r){
-      var v=r[1][k]; if(v===null) return;
-      var p=k>0?r[1][k-1]:null, d='';
-      if(p!==null&&p!==undefined&&v!==p){d=v>p?'<span class="d up" aria-label="subiu">↑</span>':'<span class="d dn" aria-label="desceu">↓</span>';}
-      else d='<span class="d"></span>';
-      var bars='';for(var i=1;i<=5;i++){bars+='<i class="'+(i<=v?'on':'')+'"></i>';}
-      var cls='hrow'+(v===0?' out':'')+(v===5?' conf':'');
-      h+='<div class="'+cls+'"><div class="nm">'+r[0]+'</div><div class="lvl" data-l="'+v+'" role="img" aria-label="'+LV[v]+'">'+bars+d+'</div><div class="why">'+LV[v]+(r[2][k]&&r[2][k]!=='—'?' · '+r[2][k]:'')+'</div></div>';
+  function rx(secId,HYP){
+    var sec=document.getElementById(secId); if(!sec) return;
+    sec.querySelectorAll('.hyp').forEach(function(box){
+      var k=+box.dataset.step, h='<div class="t">Hipóteses na mesa <span>nível qualitativo · seta = mudou neste passo</span></div>';
+      HYP.forEach(function(r){
+        var v=r[1][k]; if(v===null) return;
+        var p=k>0?r[1][k-1]:null, d='';
+        if(p!==null&&p!==undefined&&v!==p){d=v>p?'<span class="d up" aria-label="subiu">↑</span>':'<span class="d dn" aria-label="desceu">↓</span>';}
+        else d='<span class="d"></span>';
+        var bars='';for(var i=1;i<=5;i++){bars+='<i class="'+(i<=v?'on':'')+'"></i>';}
+        var cls='hrow'+(v===0?' out':'')+(v===5?' conf':'');
+        h+='<div class="'+cls+'"><div class="nm">'+r[0]+'</div><div class="lvl" data-l="'+v+'" role="img" aria-label="'+LV[v]+'">'+bars+d+'</div><div class="why">'+LV[v]+(r[2][k]&&r[2][k]!=='—'?' · '+r[2][k]:'')+'</div></div>';
+      });
+      box.innerHTML=h;
     });
-    box.innerHTML=h;
-  });
-  var tabs=[].slice.call(document.querySelectorAll('.rx-tabs [role="tab"]')), cur=0;
-  var prev=document.querySelector('.rx-prev'), next=document.querySelector('.rx-next');
-  function show(i,focus){
-    cur=i;
-    tabs.forEach(function(t,j){var on=j===i;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on;});
-    prev.disabled=i===0; next.disabled=i===tabs.length-1;
-    if(focus) tabs[i].focus();
+    var tabs=[].slice.call(sec.querySelectorAll('.rx-tabs [role="tab"]')), cur=0;
+    var prev=sec.querySelector('.rx-prev'), next=sec.querySelector('.rx-next');
+    function show(i,focus){
+      cur=i;
+      tabs.forEach(function(t,j){var on=j===i;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on;});
+      prev.disabled=i===0; next.disabled=i===tabs.length-1;
+      if(focus) tabs[i].focus();
+    }
+    tabs.forEach(function(t,j){
+      t.addEventListener('click',function(){show(j);});
+      t.addEventListener('keydown',function(e){
+        if(e.key==='ArrowRight'){e.preventDefault();show((j+1)%tabs.length,true);}
+        if(e.key==='ArrowLeft'){e.preventDefault();show((j-1+tabs.length)%tabs.length,true);}
+      });
+    });
+    prev.addEventListener('click',function(){if(cur>0)show(cur-1);});
+    next.addEventListener('click',function(){if(cur<tabs.length-1){show(cur+1);sec.scrollIntoView({block:'start'});}});
+    show(0);
   }
-  tabs.forEach(function(t,j){
-    t.addEventListener('click',function(){show(j);});
-    t.addEventListener('keydown',function(e){
-      if(e.key==='ArrowRight'){e.preventDefault();show((j+1)%tabs.length,true);}
-      if(e.key==='ArrowLeft'){e.preventDefault();show((j-1+tabs.length)%tabs.length,true);}
-    });
-  });
-  prev.addEventListener('click',function(){if(cur>0)show(cur-1);});
-  next.addEventListener('click',function(){if(cur<tabs.length-1){show(cur+1);document.getElementById('raciocinio').scrollIntoView({block:'start'});}});
-  show(0);
+  rx('raciocinio',HYP_A);
+  rx('casoreal',HYP_B);
 
   // Benchmark: asserções aprovadas / total por caso, com e sem a skill (iteração 3, 04/11/2026, rodada única)
   var data=[
