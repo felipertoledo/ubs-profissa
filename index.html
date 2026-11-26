@@ -203,11 +203,11 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
 
 <div class="wrap">
 <header class="hdr">
-  <div class="eyebrow">Teleconsulta assistida · skill v3.8.17</div>
+  <div class="eyebrow">Teleconsulta assistida · skill v3.8.21</div>
   <h1>UBS Profissa</h1>
   <p class="lede">Uma interface entre Claude e um médico de família. Não é um chatbot que responde ao paciente: o médico conduz a consulta e decide; o sistema estrutura o que foi dito, verifica o que vai para o papel e documenta. Esta página mostra, num caso fictício, uma teleconsulta que parecia resolvida e o que a ferramenta encontrou nela; depois, para colegas, o que o paciente leva para casa e como as perguntas voltam cifradas, e um caso de raciocínio clínico passo a passo; por fim, as travas de segurança e o que o teste automatizado mede.</p>
   <div class="meta">
-    <span>Versão da skill: v3.8.17 (05/11/2026)</span>
+    <span>Versão da skill: v3.8.21 (26/11/2026)</span>
     <span>Benchmark: iteração 3 + três baterias de segurança</span>
     <span>Manual completo: <a href="https://claude.ai/artifact/22tRUDYGqFmyiRW1Gr8LQz">Como o framework funciona</a></span>
   </div>
@@ -220,7 +220,7 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
     <button type="button" id="aud-dev" data-aud="dev" aria-pressed="false">Desenvolvedor</button>
   </div>
   <nav>
-    <a href="#pipeline">Pipeline</a><a href="#posconsulta">Pós-consulta</a><a href="#raciocinio">Raciocínio</a><a href="#casoreal">Caso real</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#instalar">Instalar</a><a href="#limites">Limites</a>
+    <a href="#pipeline">Pipeline</a><a href="#posconsulta">Pós-consulta</a><a href="#raciocinio">Raciocínio</a><a href="#casoreal">Caso real</a><a href="#casoreal2">Exame normal</a><a href="#travas">Travas</a><a href="#numeros">Números</a><a href="#leituras">Leituras</a><a href="#instalar">Instalar</a><a href="#limites">Limites</a>
   </nav>
 </div>
 
@@ -1228,6 +1228,310 @@ se acompanha; não se encerra.</div>
   <p class="note" data-r="dev" hidden><b>Onde está cada regra:</b> escada e Passo 0 no SKILL.md (§3 e §16); sinal crítico no §3; observado × relato e fontes divergentes no §4-C; divergência do médico registrada uma vez no §11; lint, rastreio e verificador em <code>references/check-final.md</code>; desidentificação no §5-B.</p>
 </section>
 
+<section id="casoreal2">
+  <div class="eyebrow">Para colegas · caso real · em andamento</div>
+  <h2>A adolescente que desmaiava, e os exames normais que quase fecharam o caso</h2>
+  <div class="real"><b>Caso real, em andamento.</b> A responsável legal autorizou por escrito a divulgação desta história. Não há nome nem iniciais; as datas são relativas à primeira consulta (dia 0) e nenhum serviço ou profissional é nomeado.</div>
+  <p>Adolescente de 16 anos com desmaios repetidos e mal-estar ao ficar em pé. Eletrocardiograma, ecocardiograma, teste ergométrico e laboratório vieram normais. Com isso na mão, a ferramenta fechou o caso em "falta de condicionamento". O médico não aceitou, foi buscar um registro de pressão e pulso feito pela técnica de enfermagem, e a hipótese mudou.</p>
+  <p>Este caso está aqui pelo erro, não pelo acerto. O diagnóstico ainda não está fechado. O que ele mostra é o que acontece quando um exame normal é lido como resposta para uma pergunta que ele não fazia. Clique em cada passo.</p>
+
+  <ol class="tl" aria-label="Linha do tempo do segundo caso real">
+    <li class="key"><b>Dia 0</b>Primeira consulta; ECG normal; teste em pé interrompido</li>
+    <li><b>Dia 2</b>Teste ergométrico sem arritmia</li>
+    <li><b>Dia 9</b>Ecocardiograma normal</li>
+    <li class="stop"><b>Dia 31</b>A ferramenta fecha em "descondicionamento"</li>
+    <li class="key"><b>Dia 31</b>O registro da técnica: +55 bpm em pé</li>
+    <li><b>A seguir</b>Reteste pela manhã e tilt test</li>
+  </ol>
+
+  <div class="rx-tabs" role="tablist" aria-label="Passos do segundo caso real">
+    <button type="button" role="tab" id="c2-t1" aria-controls="c2-p1" aria-selected="true"><b>1</b><span>História</span></button>
+    <button type="button" role="tab" id="c2-t2" aria-controls="c2-p2" aria-selected="false" tabindex="-1"><b>2</b><span>O que se viu</span></button>
+    <button type="button" role="tab" id="c2-t3" aria-controls="c2-p3" aria-selected="false" tabindex="-1"><b>3</b><span>Tudo normal</span></button>
+    <button type="button" role="tab" id="c2-t4" aria-controls="c2-p4" aria-selected="false" tabindex="-1"><b>4</b><span>O fechamento</span></button>
+    <button type="button" role="tab" id="c2-t5" aria-controls="c2-p5" aria-selected="false" tabindex="-1"><b>5</b><span>O registro</span></button>
+    <button type="button" role="tab" id="c2-t6" aria-controls="c2-p6" aria-selected="false" tabindex="-1"><b>6</b><span>Em aberto</span></button>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="c2-p1" aria-labelledby="c2-t1">
+    <h3>Dia 0 · A história</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que o médico trouxe</span>adolescente, 16 a, sexo feminino, magra.
+em uso de antidepressivo (ISRS),
+prescrito por quadro tido como ansioso.
+
+três desmaios: em casa ao levantar,
+no supermercado, <mark>na academia</mark>.
+antes de apagar: tontura, enjoo, frio,
+palidez. a mãe viu: não se debateu.
+
+<mark>sempre passa mal ao correr</mark>; por isso
+evita atividade física.
+
+história familiar: não disponível.</div>
+      <div class="doc"><span class="t">O que foi para a mesa</span><b>⚑ Passo 0</b> presencial · USF · história
+segundo paciente e mãe
+
+<b>Escada</b> 1) síncope reflexa: aviso antes
+de apagar, em pé, sem convulsão →
+2) glicose baixa → 3) pouco volume:
+anemia, pouca água, pouca comida →
+4) taquicardia postural →
+5) coração: arritmia ou doença
+estrutural
+
+<b>Pergunta que decide o degrau 5:</b>
+o desmaio da academia foi durante
+ou depois do esforço?
+<b>Primeiro passo:</b> pressão e pulso
+deitada e em pé, glicemia, ECG.</div>
+    </div>
+    <div class="hyp" data-step="0"></div>
+    <p class="note"><b>O rótulo que já existia:</b> ela chegou com "ansiedade" e remédio para isso. Batedeira, tremor, frio e medo de correr cabem em ansiedade. Cabem também em um corpo que não segura a pressão em pé.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="c2-p2" aria-labelledby="c2-t2" hidden>
+    <h3>Dia 0 · O que se viu na unidade</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">Medido e respondido</span>pulso de <span class="crit">125</span> com batedeira,
+visto pelo médico.
+
+ECG de repouso, feito depois:
+<span class="ok">ritmo sinusal, FC 73, QTc normal</span>
+
+glicemia capilar <span class="ok">109</span> · temperatura
+36,4 °C
+
+teste em pé: interrompido, passou mal.
+o que chegou ao médico naquele dia:
+PA 90/60 → <span class="crit">80/50</span>, "pulso subiu",
+sem número.
+
+resposta à pergunta: o desmaio foi
+<mark>durante o esforço</mark>.</div>
+      <div class="doc"><span class="t">O que mudou na mesa</span>• glicose baixa: <span class="ok">excluída</span>
+• desmaio durante esforço é sinal de
+  alto risco: o coração <b>sobe</b> e passa
+  a ser investigado primeiro
+• o médico pediu ecocardiograma,
+  teste ergométrico e cardiologia, e
+  restringiu esforço vigoroso
+
+<span class="crit">A ferramenta, antes da resposta:</span>
+tratou esse pedido como possível
+excesso, com o ECG normal.
+<span class="ok">O médico estava certo.</span>
+
+<b>Achado-índice, o que ele viu:</b>
+passar mal <b>em pé</b>, com pulso de 125.</div>
+    </div>
+    <div class="hyp" data-step="1"></div>
+    <p class="note"><b>O que ficou sem número:</b> o teste em pé foi feito pela técnica de enfermagem, com pressão e pulso anotados minuto a minuto. Essa anotação só entrou no prontuário depois da consulta. Ninguém perguntou por ela, nem a ferramenta.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="c2-p3" aria-labelledby="c2-t3" hidden>
+    <h3>Dias 2 a 31 · Tudo normal</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">Laudos e avaliações</span>teste ergométrico: <span class="ok">sem arritmia</span>,
+<span class="ok">sem alteração de ST</span>, sem sintoma.
+parou por cansaço: 9 METs, aptidão
+abaixo da faixa para a idade.
+
+ecocardiograma: <span class="ok">normal</span>. sem
+hipertrofia, função preservada.
+
+laboratório: <span class="ok">normal</span>.
+
+avaliação com especialista:
+"é da idade". conduta: hidratar e
+terapia. sem pressão em pé na
+evolução.</div>
+      <div class="doc"><span class="t">O que cada exame respondia</span>• ECG, eco, ergométrico:
+  "há doença do coração ou arritmia
+  de esforço?" → <span class="ok">não</span>
+• laboratório:
+  "há anemia, sal alterado, tireoide,
+  gravidez?" → <span class="ok">não</span>
+
+<b>A pergunta que nenhum deles fazia:</b>
+por que ela passa mal <b>em pé</b>, com
+o pulso disparado?
+
+Três rótulos até aqui, de três
+fontes: ansiedade, idade e, no passo
+seguinte, sedentarismo.</div>
+    </div>
+    <div class="hyp" data-step="2"></div>
+    <p class="note"><b>O que o exame normal fez de bom:</b> afastou o que mata. Essa parte da investigação estava certa e era a primeira a fazer. O erro vem depois.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="c2-p4" aria-labelledby="c2-t4" hidden>
+    <h3>Dia 31 · A ferramenta fecha o caso</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que a ferramenta escreveu</span><s>"nada estrutural, nada elétrico.
+o achado positivo é
+descondicionamento."</s>
+
+<s>taquicardia postural: "subtipo a
+confirmar, muda pouco a conduta."</s>
+
+<s>fala proposta para a paciente:
+"é um corpo que ficou muito tempo
+sem treinar."</s>
+
+<s>conduta proposta: liberar corrida
+progressiva; retirar a dispensa da
+educação física.</s></div>
+      <div class="doc"><span class="t">O que estava errado</span><span class="crit">1.</span> Exame normal lido como
+diagnóstico. Ele só respondia à
+pergunta do coração.
+
+<span class="crit">2.</span> A hipótese que <b>prevê</b> exame
+normal foi rebaixada por causa do
+exame normal.
+
+<span class="crit">3.</span> "Descondicionamento" explica o
+cansaço na esteira. Não explica
+desmaio, palidez, pulso de 125
+nem pressão de 80/50 em pé.
+
+<span class="crit">4.</span> A corrida proposta era o
+exercício errado para o que veio
+a seguir.
+
+<b>O médico:</b> "isso me incomoda."</div>
+    </div>
+    <div class="hyp" data-step="3"></div>
+    <p class="note"><b>O que quase aconteceu:</b> a paciente sairia com a terceira versão de "não é nada", desta vez bem redigida e com quatro exames normais para sustentar. Texto fluente não é evidência.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="c2-p5" aria-labelledby="c2-t5" hidden>
+    <h3>Dia 31 · O registro da técnica de enfermagem</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O teste do dia 0, com números</span>            PA       pulso
+deitada     110/70    83
+2 min pé    100/60   <span class="crit">124</span>
+5 min pé     90/60   <span class="crit">130</span>  tontura
+7 min pé     90/60   <span class="crit">138</span>  descorada
+10 min pé    <span class="crit">80/50</span>    90  precisou deitar
+
+feito depois do almoço.
+glicemia na hora: 99.
+
+perguntada depois: refere
+<mark>articulações muito flexíveis</mark>.</div>
+      <div class="doc"><span class="t">O que mudou na mesa</span>• o pulso sobe <b>55</b> em sete minutos
+  em pé, com sintoma
+• no fim, pulso e pressão caem
+  juntos: é o reflexo que derruba
+• coração normal é o <b>esperado</b>
+  nessa hipótese; os exames passam
+  a contar a favor
+• o cansaço deixa de ser só
+  "falta de treino"
+
+<b>Hipótese de trabalho do médico:</b>
+taquicardia postural ortostática com
+componente vasovagal.
+
+<b>Exercício:</b> começa deitado ou
+sentado, não na corrida.</div>
+    </div>
+    <div class="hyp" data-step="4"></div>
+    <p class="note"><b>De onde veio o dado:</b> de um aparelho de pressão, dez minutos e uma técnica de enfermagem que anotou cada medida. Estava registrado desde o dia 0. Faltava alguém perguntar por ele.</p>
+  </div>
+
+  <div class="rx-panel" role="tabpanel" id="c2-p6" aria-labelledby="c2-t6" hidden>
+    <h3>O que continua em aberto</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">Por que o caso não está fechado</span>• um teste só, e depois do almoço
+• a pressão cai junto: o critério
+  estrito pede pressão estável nos
+  primeiros minutos. o caso fica no
+  limite
+• os pontos de corte usados aqui
+  foram citados de memória e estão
+  por conferir em fonte lida
+
+<b>O que mudaria a hipótese:</b>
+dois retestes pela manhã sem a
+subida do pulso, ou tilt test com
+queda de pressão sem taquicardia.</div>
+      <div class="doc"><span class="t">O que foi feito</span><b>Já, sem esperar laudo:</b> água e sal,
+levantar em etapas, deitar ao primeiro
+aviso, exercício deitado ou sentado.
+serve nas duas hipóteses.
+
+<b>Marcado:</b> pressão e pulso em casa,
+deitada e em pé, com a mãe ao lado;
+reteste pela manhã; tilt test.
+
+<b>Antidepressivo:</b> mantido. a decisão
+volta ao psiquiatra, agora com
+estes dados.
+
+<b>Gatilho de reabertura do coração:</b>
+novo desmaio durante esforço.
+
+<span class="ok">Não fez:</span> trocar um rótulo por outro
+antes de medir de novo.</div>
+    </div>
+    <div class="hyp" data-step="5"></div>
+    <p class="note"><b>O que este caso não é:</b> a história de um médico que acertou o diagnóstico contra a máquina. É a história de um médico que não deixou o caso fechar com um achado sem explicação. Se o reteste vier negativo, o nome muda e a lição fica.</p>
+  </div>
+
+  <div class="rx-nav">
+    <button type="button" class="rx-prev">← Passo anterior</button>
+    <button type="button" class="rx-next">Próximo passo →</button>
+  </div>
+
+  <h3 class="rx-sub">Onde a ferramenta errou neste caso</h3>
+  <p>Os erros abaixo aconteceram de verdade e foram pegos pelo médico. Nenhum chegou à paciente.</p>
+  <ul class="err">
+    <li>Leu exame normal como diagnóstico: <s>"o achado positivo é descondicionamento"</s>. Nenhum dos exames testava a resposta à postura.</li>
+    <li>Rebaixou a hipótese que previa os exames normais: <s>"subtipo a confirmar"</s>.</li>
+    <li>Usou rótulo de sobra como achado e redigiu a fala para a paciente: <s>"um corpo que ficou muito tempo sem treinar"</s>.</li>
+    <li>Leu só a conclusão do laudo do ergométrico. A tabela do exame trazia o pulso deitada e em pé.</li>
+    <li>Planejou com a rede do fluxograma: <s>"prioridade na regulação", "o especialista decide"</s>. O dado que decidiu o caso foi colhido dentro da unidade.</li>
+    <li>No dia 0, tratou o pedido de ecocardiograma e ergométrico como possível excesso antes de ter a resposta que decidia. Era desmaio durante esforço; a indicação estava certa.</li>
+    <li>Citou ponto de corte de memória, contra a regra do próprio framework.</li>
+  </ul>
+
+  <h3 class="rx-sub">O que o caso ensina</h3>
+  <div class="cols">
+    <div class="doc"><span class="t">Cinco lições</span>1. Exame normal responde só à pergunta
+   que ele testava.
+2. Diante de exame normal, a primeira
+   pergunta é: o que explica o achado
+   que motivou o pedido?
+3. Há hipóteses que preveem exame
+   normal. Nelas, o normal conta a
+   favor.
+4. "Sedentarismo", "ansiedade" e "da
+   idade" cabem em quase todo caso.
+   Antes de usar: o que explicam, e o
+   que não explicam?
+5. O laudo se lê inteiro, e o registro
+   da equipe se pergunta.</div>
+    <div class="doc"><span class="t">O que só o médico trouxe</span>• viu a paciente passar mal em pé;
+  a ferramenta só leu sobre isso
+• pediu os exames do coração pela
+  história de esforço, contra a
+  objeção da ferramenta
+• não aceitou "sedentarismo" para
+  explicar desmaio
+• disse "isso me incomoda" e, em vez
+  de discutir, foi buscar o dado
+• manteve o tratamento que serve nas
+  duas hipóteses e marcou reteste
+• reconheceu o teste da técnica de
+  enfermagem, que decidiu o caso</div>
+  </div>
+  <p class="note">A ferramenta raciocina; quem diagnostica é quem examinou. O incômodo do médico não é resistência à evidência: quase sempre aponta para um achado que ficou sem explicação. O incômodo abre a pergunta, e quem responde é a medida.</p>
+  <p class="note" data-r="gestao" hidden><b>Para a gestão:</b> caso publicado com autorização escrita da responsável legal, sem nome, iniciais, data, documento ou serviço identificado. O teste que mudou a hipótese usa um aparelho de pressão e dez minutos de uma técnica de enfermagem. Quatro exames e uma consulta especializada vieram antes dele.</p>
+  <p class="note" data-r="dev" hidden><b>Onde está cada regra:</b> achado-índice no SKILL.md §17 (v3.8.21), com o texto integral em <code>references/nucleo.md</code>; "ferramenta de raciocínio, não de diagnóstico" e "rede real" no §11; o caso com os erros um a um em <code>references/caso-achado-indice.md</code>; ponto de corte de memória no §4 (v3.8.20).</p>
+</section>
+
 <section id="travas">
   <div class="eyebrow">Segurança</div>
   <h2>Cada trava existe por causa de um erro que aconteceu</h2>
@@ -1252,6 +1556,11 @@ se acompanha; não se encerra.</div>
       <div class="date">03/11/2026 · regressão do núcleo</div>
       <div class="err">Uma sessão longa gravou um patch sobre uma cópia antiga das regras. O núcleo voltou três versões sem ninguém perceber.</div>
       <div class="fix"><b>Trava de gravação + git:</b> ler a versão atual no mesmo turno, versão igual ao índice, editar por âncora, diff de seções, subir a versão em três lugares. A skill vive em repositório versionado com tag por versão: regressão vira um diff; recuperação, um checkout.</div>
+    </div>
+    <div class="trava">
+      <div class="date">v3.8.21 · exame normal lido como diagnóstico</div>
+      <div class="err">Com ecocardiograma, ergométrico e laboratório normais, a ferramenta fechou um caso de desmaios em "descondicionamento". Nenhum dos exames testava o que a paciente tinha: passar mal em pé.</div>
+      <div class="fix"><b>Regra 17, achado-índice:</b> o achado que motivou a investigação é nomeado antes de ler o resultado. Exame normal → "o que explica o achado?". Hipótese que prevê exame normal sobe. Rótulo de sobra ("sedentarismo", "ansiedade", "da idade") só depois de escrito o que explica e o que não explica. <b>Regra 11:</b> quando o médico diz que não fecha, a ferramenta para de defender e lista o que ficou sem explicação.</div>
     </div>
   </div>
   <p class="note" style="margin-top:16px"><b>Verificador independente.</b> Todo documento a terceiro passa por um segundo agente que recebe só o documento, a fonte literal e o roteiro de auditoria, nada da conversa. Nos três casos-origem reproduzidos em teste (município fabricado, pedido de fono com "(confirmar)", resumo a instituição sem proveniência) ele bloqueou os três; o documento-controle passou.</p>
@@ -1376,9 +1685,9 @@ se acompanha; não se encerra.</div>
 <section id="instalar">
   <div class="eyebrow">Para colegas</div>
   <h2>Como instalar a skill no seu Claude</h2>
-  <p>A edição para colegas é a mesma skill testada nesta página (v3.8.17), sem o nome, o CRM, a unidade e a rede do autor. Esses dados viram configuração: a skill pergunta na primeira conversa, ou você preenche antes de instalar.</p>
+  <p>A edição para colegas é a skill na versão v3.8.21, sem o nome, o CRM, a unidade e a rede do autor. Os testes desta página foram feitos nas versões indicadas em cada bateria (v3.8.14 a v3.8.17); o que entrou depois está na lista de limites. Esses dados viram configuração: a skill pergunta na primeira conversa, ou você preenche antes de instalar.</p>
   <ol class="passos">
-    <li><b>Baixe o arquivo.</b> <a class="btn" href="ubs-profissa-colega.skill" download>Baixar ubs-profissa-colega.skill</a> <span class="note-inline">v3.8.17 · edição colega</span></li>
+    <li><b>Baixe o arquivo.</b> <a class="btn" href="ubs-profissa-colega.skill" download>Baixar ubs-profissa-colega.skill</a> <span class="note-inline">v3.8.21 · edição colega</span></li>
     <li><b>Configure (opcional).</b> O arquivo <code>.skill</code> é um <code>.zip</code>. Descompacte, preencha <code>ubs-profissa/references/configuracao.md</code> (nome, título, CRM, unidade, município, rede local) e compacte de novo. Se pular este passo, a skill pergunta esses dados na primeira conversa.</li>
     <li><b>Instale.</b> No Claude, abra Configurações → Skills e envie o arquivo. A disponibilidade de skills depende do seu plano; em caso de dúvida, veja a <a href="https://support.claude.com" rel="noopener">central de ajuda do Claude</a>.</li>
     <li><b>Teste.</b> Numa conversa nova, mande só <code>ubs</code>. A resposta esperada é "UBS aberta. Quem chegou hoje?". Se a configuração estiver vazia, a skill pede seus dados antes do primeiro documento.</li>
@@ -1414,10 +1723,12 @@ se acompanha; não se encerra.</div>
     <li>O corpus de fontes foi verificado em maio de 2026 e as diretrizes em setembro de 2026; quanto mais longe dessas datas, mais o sistema sinaliza "conferir versão vigente".</li>
     <li>PDF digitalizado sem texto não passa pelo lint; a varredura é manual e declarada.</li>
     <li>Não foi testado: consulta presencial gravada por relógio nesta suíte; casos pediátricos e de gestação além dos evals de módulo; a busca de artigo pelo PubMed (entrou na v3.8.17); a edição colega teve um único teste, com caso fictício.</li>
+    <li>As versões v3.8.18 a v3.8.21 não passaram pela suíte de casos de segurança. A consulta a livros (v3.8.20) teve cinco casos lidos pelo próprio autor da regra; a regra do achado-índice (v3.8.21) ainda não tem caso de teste.</li>
+    <li>O segundo caso real está em andamento: a hipótese pode mudar com o reteste e com o tilt test, e os pontos de corte citados nele estão por conferir em fonte lida.</li>
     <li>Nenhum resultado clínico é prometido. O que se mede é comportamento do sistema contra regras, não desfecho de paciente.</li>
   </ul>
   <div class="sig">Felipe Ribeiro Toledo — Médico — CRM-SP 216.986
-    <small>Página elaborada com apoio de ferramenta computacional sob revisão e responsabilidade do médico signatário (Res. CFM 2.454/2026). Exemplos fictícios, exceto o caso real, publicado com autorização escrita do paciente, identificado por iniciais e com datas relativas. Manual completo: <a href="https://claude.ai/artifact/22tRUDYGqFmyiRW1Gr8LQz">UBS Profissa — Como o framework funciona</a>.</small>
+    <small>Página elaborada com apoio de ferramenta computacional sob revisão e responsabilidade do médico signatário (Res. CFM 2.454/2026). Exemplos fictícios, exceto os dois casos reais, publicados com autorização escrita (do paciente no primeiro; da responsável legal no segundo), com datas relativas e sem serviço ou profissional nomeado. Manual completo: <a href="https://claude.ai/artifact/22tRUDYGqFmyiRW1Gr8LQz">UBS Profissa — Como o framework funciona</a>.</small>
   </div>
 </section>
 </div>
@@ -1490,7 +1801,17 @@ se acompanha; não se encerra.</div>
     show(0);
   }
   rx('raciocinio',HYP_A);
+  // Segundo caso real (seção #casoreal2): seis passos. O passo 4 (índice 3) mostra o nível que a FERRAMENTA deu, que estava errado.
+  var HYP_C=[
+    ['Glicose baixa',[2,0,0,0,0,0],['tremor, frio, palidez, mal-estar súbito','glicemia 109','—','—','—','—']],
+    ['Pouco volume (anemia, sal, tireoide, gravidez)',[2,2,0,0,0,0],['magra, pressão baixa','aguarda laboratório','laboratório normal','—','—','—']],
+    ['Coração: arritmia de esforço ou doença estrutural',[2,3,1,1,1,1],['não pode ficar sem descartar','desmaio durante esforço: sinal de alto risco','ECG, eco e ergométrico normais','—','—','reabre se desmaiar de novo em esforço']],
+    ['Descondicionamento isolado',[null,null,2,4,1,1],['','','aptidão abaixo da faixa na esteira','a ferramenta subiu esta; não explica desmaio nem o pulso em pé','consequência do quadro, não a causa','—']],
+    ['Síncope reflexa (vasovagal)',[3,3,3,3,3,3],['aviso antes de apagar, em pé, sem convulsão','passou mal no teste em pé','segue; não explica o pulso de 125','—','é o reflexo que derruba no fim do teste','componente do quadro']],
+    ['Taquicardia postural ortostática',[2,2,2,1,4,4],['palpitação, intolerância a ficar em pé','pulso de 125 visto; teste sem número','coração normal é o esperado aqui','a ferramenta rebaixou por causa dos exames normais','pulso +55 em sete minutos, com sintoma','falta reteste pela manhã e tilt test']]
+  ];
   rx('casoreal',HYP_B);
+  rx('casoreal2',HYP_C);
 
   // Benchmark: asserções aprovadas / total por caso, com e sem a skill (iteração 3, 04/11/2026, rodada única)
   var data=[
