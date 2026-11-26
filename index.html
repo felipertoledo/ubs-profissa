@@ -187,7 +187,7 @@ th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08e
 @media (prefers-reduced-motion:no-preference){#raciocinio{scroll-margin-top:70px}}
 .real{font-size:13px;color:var(--fg);border:1px solid var(--accent);border-left-width:4px;background:var(--accent-2);padding:8px 12px;display:inline-block;margin-bottom:16px;max-width:68ch}
 .tl{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:0;margin:18px 0 6px;padding:0;border-top:2px solid var(--line)}
-.tl li{position:relative;padding:14px 10px 0 0;font-size:13px;color:var(--fg-2);line-height:1.35}
+.tl li{position:relative;padding:14px 10px 0 0;overflow-wrap:anywhere;hyphens:auto;font-size:13px;color:var(--fg-2);line-height:1.35}
 .tl li::before{content:"";position:absolute;top:-6px;left:0;width:10px;height:10px;border-radius:50%;background:var(--paper);border:2px solid var(--accent)}
 .tl li.key::before{background:var(--accent)}
 .tl li.stop::before{background:var(--crit);border-color:var(--crit)}
@@ -878,7 +878,8 @@ E para por aí.</div>
     <li><b>Dia 26</b>RM de encéfalo sem lesão</li>
     <li class="key"><b>Dia 28</b>Exame de fatigabilidade</li>
     <li class="key"><b>Dia 40</b>Decremento: miastenia gravis</li>
-    <li class="stop"><b>Dia 41</b>Internação recusada sem regulação</li>
+    <li class="stop"><b>Dia 41</b>Recusa sem regulação; internado na cidade vizinha</li>
+    <li class="key"><b>Dia 47</b>Em tratamento, com melhora</li>
   </ol>
 
   <div class="rx-tabs" role="tablist" aria-label="Passos do caso real">
@@ -889,6 +890,7 @@ E para por aí.</div>
     <button type="button" role="tab" id="cr-t5" aria-controls="cr-p5" aria-selected="false" tabindex="-1"><b>5</b><span>A pergunta</span></button>
     <button type="button" role="tab" id="cr-t6" aria-controls="cr-p6" aria-selected="false" tabindex="-1"><b>6</b><span>Decremento</span></button>
     <button type="button" role="tab" id="cr-t7" aria-controls="cr-p7" aria-selected="false" tabindex="-1"><b>7</b><span>O sistema</span></button>
+    <button type="button" role="tab" id="cr-t8" aria-controls="cr-p8" aria-selected="false" tabindex="-1"><b>8</b><span>Desfecho</span></button>
   </div>
 
   <div class="rx-panel" role="tabpanel" id="cr-p1" aria-labelledby="cr-t1">
@@ -1118,7 +1120,7 @@ internação no hospital municipal da
 cidade vizinha, com pedido de inserção
 na regulação estadual.
 
-<span class="conf">Desfecho: em aberto.</span></div>
+<span class="ok">Internado no mesmo dia.</span></div>
       <div class="doc"><span class="t">O que a skill produziu</span>• dois encaminhamentos completos:
   história, exame, processo diagnóstico,
   todos os laudos e o pedido;
@@ -1136,8 +1138,47 @@ ferramenta faz. O que ela faz é deixar
 o caso impossível de ignorar no papel.</div>
     </div>
     <div class="hyp" data-step="6"></div>
-    <p class="note"><b>Sem desfecho ainda.</b> Esta página será atualizada quando houver. Um diagnóstico firmado e um tratamento disponível não bastam se a porta do serviço depende de uma regulação que a origem não alcança.</p>
+    <p class="note"><b>O que mudou:</b> a porta abriu no hospital da cidade vizinha, no mesmo dia. Um diagnóstico firmado e um tratamento disponível não bastam se a entrada do serviço de referência depende de uma regulação que a origem não alcança.</p>
   </div>
+
+  <div class="rx-panel" role="tabpanel" id="cr-p8" aria-labelledby="cr-t8">
+    <h3>Dias 41 a 47 · Tratado, em casa, melhorando</h3>
+    <div class="cols">
+      <div class="doc"><span class="t">O que aconteceu</span>dia 41: internado no hospital da cidade
+vizinha. Recebeu medicação durante a
+internação.
+
+dia 45: alta em bom estado geral, para
+seguir em casa com <b>azatioprina</b> e
+<b>piridostigmina</b>.
+
+dia 47, consulta na unidade:
+<span class="ok">melhora significativa</span>
+<span class="ok">ganho de 2 kg</span>
+contagem em uma expiração:
+  dia 28 → <span class="crit">8</span>
+  dia 47 → <span class="ok">30</span></div>
+      <div class="doc"><span class="t">O que ficou com cada um</span><b>Especialidade:</b> o tratamento de
+manutenção e o ajuste do imunossupressor.
+
+<b>Atenção primária:</b> reexame seriado,
+exames de controle do imunossupressor,
+sinais de retorno combinados com a
+família, relatório para a perícia.
+
+<b>Ainda em aberto:</b>
+• sem resumo de alta: não se sabe o que
+  foi infundido
+• sorologia para definir o subtipo
+• PPD reator em quem vai ficar meses
+  imunossuprimido
+
+<span class="ok">Não fez:</span> dar alta ao caso. Miastenia
+se acompanha; não se encerra.</div>
+    </div>
+    <div class="hyp" data-step="7"></div>
+    <p class="note"><b>Em quarenta e sete dias:</b> de um homem que não engolia e contava até 8 em uma expiração para um homem em casa, ganhando peso, contando até 30. A doença era tratável desde o primeiro dia; o que faltava era o nome dela.</p>
+</div>
 
   <div class="rx-nav">
     <button type="button" class="rx-prev">← Passo anterior</button>
@@ -1180,6 +1221,7 @@ o caso impossível de ignorar no papel.</div>
     <li>Voltou a um registro antigo e escreveu <s>"febre vespertina"</s>. A pergunta original era composta e só a sudorese estava estabelecida. O verificador bloqueou.</li>
     <li>Juntou o nome de uma clínica ao sobrenome de um colega. Corrigido na versão seguinte.</li>
     <li>Gerou um PDF que ninguém pediu. Virou regra: documento só sai sob comando.</li>
+    <li>No relatório para a perícia, escreveu um código de doença <s>"com autorização do paciente"</s>. Ninguém tinha dito isso. O verificador bloqueou e o código saiu.</li>
   </ul>
   <p class="note">É por isso que cada documento passa por três verificações antes de sair, e é por isso que a decisão não é da ferramenta. Ela ajudou a manter o diferencial aberto e a documentar; o diagnóstico é de quem examinou.</p>
   <p class="note" data-r="gestao" hidden><b>Para a gestão:</b> o caso real foi publicado com autorização escrita do paciente, sem nome, data de nascimento, documento ou serviço identificado. O percurso mostra um custo que não aparece em indicador: um diagnóstico tratável levou quarenta dias para ser fechado a partir da atenção primária, e o leito que o trata depende de uma regulação que o município não acessa.</p>
@@ -1404,13 +1446,13 @@ o caso impossível de ignorar no papel.</div>
     ['Hiperparatireoidismo primário',[null,null,1,1,0,0],['','','explica o cálcio, não o gap nem a anemia','PTH ainda pendente','PTH suprimido','—']],
     ['Outra gamopatia (MGUS, Waldenström, amiloidose AL)',[null,null,null,null,1,1],['','','','','MGUS sem lesão de órgão; Waldenström é IgM; AL pode coexistir','AL associada: a hematologia investiga']]
   ];
-  // Caso real (seção #casoreal): mesmas regras de nível; sete passos.
+  // Caso real (seção #casoreal): mesmas regras de nível; oito passos.
   var HYP_B=[
-    ['Lesão estrutural (massa, base do crânio, mielopatia)',[3,0,0,0,0,0,0],['o trauma puxa o raciocínio para cá','TC e RM sem massa e sem compressão medular','—','—','—','—','—']],
-    ['Lesão de nervos cranianos baixos pelo trauma',[3,2,1,1,1,0,0],['começou depois do acidente','sem lesão de base do crânio na TC','RM sem lesão no trajeto','não explica fraqueza que cansa','—','decremento em braço e perna não é de nervo craniano','—']],
-    ['Neoplasia oculta',[2,1,1,1,1,0,0],['perda de peso','tórax e abdome sem massa','—','o peso cai porque ele não engole','—','causa encontrada','—']],
-    ['Doença do neurônio motor de início bulbar',[2,2,3,3,3,1,1],['quadro bulbar progressivo','a imagem não a enxerga','imagem sem lesão a mantém na mesa','segue possível; fatigabilidade não é o típico','desnervação cervical: sinal a favor ou só a raiz?','agulha limpa em face, abdome e pernas','sem evidência no exame; a evolução confirma']],
-    ['Miastenia gravis de forma bulbar',[2,2,3,4,4,5,5],['piora ao longo da refeição e varia entre os dias','a imagem não a enxerga','imagem sem lesão a mantém na mesa','fraqueza que cansa; faltar sinal ocular não afasta','o exame não testou a placa motora','decremento patológico em cinco músculos','falta a sorologia para definir o subtipo']]
+    ['Lesão estrutural (massa, base do crânio, mielopatia)',[3,0,0,0,0,0,0,0],['o trauma puxa o raciocínio para cá','TC e RM sem massa e sem compressão medular','—','—','—','—','—','—']],
+    ['Lesão de nervos cranianos baixos pelo trauma',[3,2,1,1,1,0,0,0],['começou depois do acidente','sem lesão de base do crânio na TC','RM sem lesão no trajeto','não explica fraqueza que cansa','—','decremento em braço e perna não é de nervo craniano','—','—']],
+    ['Neoplasia oculta',[2,1,1,1,1,0,0,0],['perda de peso','tórax e abdome sem massa','—','o peso cai porque ele não engole','—','causa encontrada','—','—']],
+    ['Doença do neurônio motor de início bulbar',[2,2,3,3,3,1,1,0],['quadro bulbar progressivo','a imagem não a enxerga','imagem sem lesão a mantém na mesa','segue possível; fatigabilidade não é o típico','desnervação cervical: sinal a favor ou só a raiz?','agulha limpa em face, abdome e pernas','sem evidência no exame; a evolução confirma','melhorou com o tratamento']],
+    ['Miastenia gravis de forma bulbar',[2,2,3,4,4,5,5,5],['piora ao longo da refeição e varia entre os dias','a imagem não a enxerga','imagem sem lesão a mantém na mesa','fraqueza que cansa; faltar sinal ocular não afasta','o exame não testou a placa motora','decremento patológico em cinco músculos','falta a sorologia para definir o subtipo','respondeu ao tratamento; sorologia ainda pendente']]
   ];
   var LV=['fora da mesa','baixa','possível','alta','forte','confirmada'];
   function rx(secId,HYP){
